@@ -20,8 +20,8 @@ from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout
 import tensorflow as tf
 
-TELEGRAM_BOT_TOKEN = "7881899788:AAGG55AmthqBb1B_Wnit4hxueZaMMq9yGGQ"
-TELEGRAM_CHAT_ID ="5692093614"
+TELEGRAM_BOT_TOKEN = "TELEGRAM_BOT_TOKEN"
+TELEGRAM_CHAT_ID ="TELEGRAM_CHAT_ID"
 
 # Model dosya yolları
 MODEL_DIR = "models"
