@@ -192,3 +192,51 @@
 2025-04-01 02:08:23,392 - security_monitor - INFO - Telegram bildirimi g�nderildi: 10 tehdit
 2025-04-01 02:08:23,393 - security_monitor - INFO - 10 tehdit tespit edildi ve bildirim g�nderildi
 2025-04-01 02:08:26,586 - security_monitor - INFO - �zleme sistemi manuel olarak durduruldu
+2025-05-14 12:43:53,724 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-14 12:43:53,725 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-14 12:44:54,131 - security_monitor - ERROR - Tehdit tespiti sırasında hata oluştu: can't subtract offset-naive and offset-aware datetimes
+2025-05-14 12:44:54,133 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-14 12:45:54,339 - security_monitor - ERROR - Tehdit tespiti sırasında hata oluştu: can't subtract offset-naive and offset-aware datetimes
+2025-05-14 12:45:54,339 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-14 12:45:58,601 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-14 12:46:03,930 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-14 12:46:03,930 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-14 12:47:04,323 - security_monitor - INFO - Modeller 10130 girdi ile eğitiliyor...
+2025-05-14 12:47:04,367 - security_monitor - ERROR - Model eğitimi sırasında hata: 'NoneType' object has no attribute 'fit'
+2025-05-14 12:47:04,741 - security_monitor - WARNING - Bot Aktivitesi tespiti: 7.35.34.176 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:47:05,220 - security_monitor - WARNING - Bot Aktivitesi tespiti: 165.198.162.110 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:47:05,958 - security_monitor - WARNING - Bot Aktivitesi tespiti: 94.93.197.142 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:47:06,287 - security_monitor - WARNING - Bot Aktivitesi tespiti: 111.171.165.107 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:47:06,796 - security_monitor - WARNING - Bot Aktivitesi tespiti: 114.11.126.247 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:47:07,221 - security_monitor - WARNING - Bot Aktivitesi tespiti: 82.45.6.249 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-14 12:47:07,744 - security_monitor - WARNING - Bot Aktivitesi tespiti: 199.28.211.240 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-14 12:47:08,171 - security_monitor - WARNING - Bot Aktivitesi tespiti: 1.6.129.140 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:47:08,581 - security_monitor - WARNING - Bot Aktivitesi tespiti: 21.234.185.154 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:47:09,127 - security_monitor - WARNING - Bot Aktivitesi tespiti: 228.157.161.66 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:47:20,591 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-14 12:47:45,315 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-14 12:47:45,657 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-14 12:48:04,151 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-14 12:54:27,458 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-14 12:54:27,459 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-14 12:55:27,707 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-14 12:56:28,606 - security_monitor - WARNING - Bot Aktivitesi tespiti: 116.230.118.120 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:56:28,970 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 91.124.60.150 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:29,405 - security_monitor - WARNING - Bot Aktivitesi tespiti: 230.189.119.155 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:56:29,908 - security_monitor - WARNING - Bot Aktivitesi tespiti: 77.195.202.171 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-14 12:56:30,400 - security_monitor - WARNING - Bot Aktivitesi tespiti: 25.193.126.207 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-14 12:56:30,765 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 62.25.82.13 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:31,125 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 251.87.102.157 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:31,476 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 30.190.158.149 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:31,884 - security_monitor - WARNING - Bot Aktivitesi tespiti: 56.190.35.129 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-14 12:56:32,369 - security_monitor - WARNING - Bot Aktivitesi tespiti: 138.6.179.188 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-14 12:56:32,776 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 204.150.238.240 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:33,228 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 60.91.56.138 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:33,764 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 211.252.8.47 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:34,208 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 199.176.204.55 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:34,728 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 202.223.22.176 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:35,260 - security_monitor - WARNING - Bot Aktivitesi tespiti: 207.157.215.227 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-14 12:56:35,771 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 62.135.144.55 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:56:36,433 - security_monitor - WARNING - Bot Aktivitesi tespiti: 21.147.161.122 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-14 12:56:36,786 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 239.97.156.237 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-14 12:57:22,506 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
