@@ -3,6 +3,10 @@ import time
 from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO
 import threading
+from dotenv import load_dotenv
+
+# .env dosyasını yükle
+load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -10,6 +14,9 @@ socketio = SocketIO(app)
 # Log dosya yolları
 ACCESS_LOG = "access.log"
 SECURITY_LOG = "security_monitor.log"
+
+# Port numarasını .env'den al (yoksa 5001 kullan)
+PORT = int(os.getenv("PORT", 5001))
 
 @app.route('/')
 def index():
@@ -91,4 +98,5 @@ if __name__ == '__main__':
     log_thread.start()
     
     # Web sunucusunu başlat
-    socketio.run(app, debug=True, host='0.0.0.0', port=5001) 
+    print(f"Log görüntüleyici başlatılıyor... PORT: {PORT}")
+    socketio.run(app, debug=True, host='0.0.0.0', port=PORT) 

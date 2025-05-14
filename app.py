@@ -19,9 +19,14 @@ import hashlib
 from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout
 import tensorflow as tf
+from dotenv import load_dotenv
 
-TELEGRAM_BOT_TOKEN = "7881899788:AAGG55AmthqBb1B_Wnit4hxueZaMMq9yGGQ"
-TELEGRAM_CHAT_ID ="5692093614"
+# .env dosyasını yükle
+load_dotenv()
+
+# Telegram token ve chat ID'yi .env dosyasından al
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # Model dosya yolları
 MODEL_DIR = "models"
