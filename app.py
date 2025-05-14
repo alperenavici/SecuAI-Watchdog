@@ -20,8 +20,8 @@ from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout
 import tensorflow as tf
 
-TELEGRAM_BOT_TOKEN = "TELEGRAM_BOT_TOKEN"
-TELEGRAM_CHAT_ID ="TELEGRAM_CHAT_ID"
+TELEGRAM_BOT_TOKEN = "7881899788:AAGG55AmthqBb1B_Wnit4hxueZaMMq9yGGQ"
+TELEGRAM_CHAT_ID ="5692093614"
 
 # Model dosya yolları
 MODEL_DIR = "models"
@@ -36,7 +36,8 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    filename='security_monitor.log'
+    filename='security_monitor.log',
+    encoding='utf-8'
 )
 logger = logging.getLogger('security_monitor')
 
@@ -116,7 +117,7 @@ class WebSecurityMonitor:
                 logger.info("Scaler yüklendi")
                 
             if os.path.exists(FEATURES_PATH):
-                with open(FEATURES_PATH, 'r') as f:
+                with open(FEATURES_PATH, 'r', encoding='utf-8') as f:
                     self.feature_names = json.load(f)
                 logger.info("Özellik isimleri yüklendi")
                 
@@ -331,7 +332,7 @@ class WebSecurityMonitor:
                 logger.error(f"Log dosyası bulunamadı: {self.log_path}")
                 return []
                 
-            with open(self.log_path, 'r') as f:
+            with open(self.log_path, 'r', encoding='utf-8', errors='replace') as f:
                 f.seek(self.last_read_position)
                 new_lines = f.readlines()
                 self.last_read_position = f.tell()

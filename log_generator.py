@@ -112,7 +112,7 @@ def main():
                 
                 for _ in range(attack_count):
                     log_entry = generate_log_entry(is_malicious=True)
-                    with open(LOG_FILE, "a") as f:
+                    with open(LOG_FILE, "a", encoding="utf-8") as f:
                         f.write(log_entry + "\n")
                     
                     # Çok kısa aralıklarla istekler (DDoS simülasyonu)
@@ -122,7 +122,7 @@ def main():
             else:
                 # Normal log kaydı
                 log_entry = generate_log_entry(is_malicious)
-                with open(LOG_FILE, "a") as f:
+                with open(LOG_FILE, "a", encoding="utf-8") as f:
                     f.write(log_entry + "\n")
             
             # Rastgele aralıklarla yeni loglar üret (daha doğal görünmesi için)
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     # Log dosyasını başlatırken temizle
     if os.path.exists(LOG_FILE):
         print(f"Varolan {LOG_FILE} dosyası sıfırlanıyor...")
-        with open(LOG_FILE, "w") as f:
+        with open(LOG_FILE, "w", encoding="utf-8") as f:
             f.write("")
     
     main() 
