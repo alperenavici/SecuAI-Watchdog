@@ -21,17 +21,12 @@ from keras.layers import LSTM, Dense, Dropout
 import tensorflow as tf
 from dotenv import load_dotenv
 
-<<<<<<< HEAD
 # .env dosyasını yükle
 load_dotenv()
 
 # Telegram token ve chat ID'yi .env dosyasından al
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
-=======
-TELEGRAM_BOT_TOKEN = "TELEGRAM_BOT_TOKEN"
-TELEGRAM_CHAT_ID ="TELEGRAM_CHAT_ID"
->>>>>>> df8b5a5c2da788eddd1a048d9f7103b7513bad63
 
 # Model dosya yolları
 MODEL_DIR = "models"

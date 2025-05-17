@@ -326,3 +326,423 @@
 2025-05-14 13:33:21,605 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 127.209.81.67 (Birden fazla user-agent kullanımı: 2 farklı imza)
 2025-05-14 13:33:22,116 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 26.241.165.51 (Birden fazla user-agent kullanımı: 2 farklı imza)
 2025-05-14 13:33:53,074 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-17 17:18:26,254 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:18:26,254 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-17 17:19:27,082 - security_monitor - WARNING - Bot Aktivitesi tespiti: 216.197.143.147 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:19:27,636 - security_monitor - WARNING - Bot Aktivitesi tespiti: 166.79.30.157 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:19:28,366 - security_monitor - WARNING - Bot Aktivitesi tespiti: 68.124.194.41 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:19:28,951 - security_monitor - WARNING - Bot Aktivitesi tespiti: 109.16.19.247 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:19:29,330 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 226.191.42.107 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:30,144 - security_monitor - WARNING - Bot Aktivitesi tespiti: 207.35.174.244 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:19:30,564 - security_monitor - WARNING - Bot Aktivitesi tespiti: 73.204.185.129 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:19:31,037 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 71.93.164.20 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:31,394 - security_monitor - WARNING - Bot Aktivitesi tespiti: 217.116.218.101 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:19:31,790 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 181.46.232.158 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:32,933 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 189.29.52.234 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:33,487 - security_monitor - WARNING - Bot Aktivitesi tespiti: 232.158.226.58 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:19:34,452 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 86.94.82.74 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:35,012 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 50.94.223.232 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:35,888 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 148.117.108.155 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:36,711 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 197.156.38.29 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:19:37,426 - security_monitor - WARNING - Bot Aktivitesi tespiti: 200.87.37.156 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:20:37,662 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:21:37,904 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:22:38,125 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:23:38,358 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:24:38,588 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:25:38,850 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:26:39,086 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:27:28,141 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-17 17:28:23,262 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:28:23,264 - dash.dash - INFO - Dash is running on http://0.0.0.0:8050/
+
+2025-05-17 17:28:23,668 - security_monitor - WARNING - Bot Aktivitesi tespiti: 216.197.143.147 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:28:24,068 - security_monitor - WARNING - Bot Aktivitesi tespiti: 166.79.30.157 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:28:24,368 - security_monitor - WARNING - Bot Aktivitesi tespiti: 68.124.194.41 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:28:24,687 - security_monitor - WARNING - Bot Aktivitesi tespiti: 109.16.19.247 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:25,003 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 226.191.42.107 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:25,322 - security_monitor - WARNING - Bot Aktivitesi tespiti: 207.35.174.244 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:25,601 - security_monitor - WARNING - Bot Aktivitesi tespiti: 73.204.185.129 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:26,025 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 71.93.164.20 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:26,418 - security_monitor - WARNING - Bot Aktivitesi tespiti: 217.116.218.101 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:26,819 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 181.46.232.158 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:27,122 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 189.29.52.234 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:27,526 - security_monitor - WARNING - Bot Aktivitesi tespiti: 232.158.226.58 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:28:27,886 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 86.94.82.74 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:28,212 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 50.94.223.232 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:28,569 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 148.117.108.155 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:28,878 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 197.156.38.29 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:29,196 - security_monitor - WARNING - Bot Aktivitesi tespiti: 200.87.37.156 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:28:30,202 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:31,206 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:32,211 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:33,216 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:34,222 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:35,224 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:36,230 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:37,233 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:38,236 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:39,240 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:40,245 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:41,251 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:46,771 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:28:46,774 - dash.dash - INFO - Dash is running on http://0.0.0.0:8050/
+
+2025-05-17 17:28:47,625 - security_monitor - WARNING - Bot Aktivitesi tespiti: 216.197.143.147 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:28:48,021 - security_monitor - WARNING - Bot Aktivitesi tespiti: 166.79.30.157 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:28:48,365 - security_monitor - WARNING - Bot Aktivitesi tespiti: 68.124.194.41 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:28:48,817 - security_monitor - WARNING - Bot Aktivitesi tespiti: 109.16.19.247 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:49,208 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 226.191.42.107 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:49,576 - security_monitor - WARNING - Bot Aktivitesi tespiti: 207.35.174.244 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:49,906 - security_monitor - WARNING - Bot Aktivitesi tespiti: 73.204.185.129 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:50,271 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 71.93.164.20 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:50,624 - security_monitor - WARNING - Bot Aktivitesi tespiti: 217.116.218.101 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:28:50,984 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 181.46.232.158 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:51,334 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 189.29.52.234 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:51,645 - security_monitor - WARNING - Bot Aktivitesi tespiti: 232.158.226.58 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:28:51,952 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 86.94.82.74 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:52,271 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 50.94.223.232 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:52,659 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 148.117.108.155 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:53,347 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 197.156.38.29 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:28:53,728 - security_monitor - WARNING - Bot Aktivitesi tespiti: 200.87.37.156 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:28:54,731 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:55,735 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:56,740 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:57,741 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:58,746 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:28:59,747 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:00,752 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:01,758 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:02,763 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:03,768 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:04,774 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:05,779 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:06,784 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:07,789 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:08,795 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:09,800 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:10,806 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:11,811 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:12,817 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:13,822 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:14,824 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:15,829 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:16,835 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:17,839 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:18,846 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:19,851 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:20,856 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:21,862 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:22,867 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:23,872 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:24,874 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:25,879 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:26,880 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:27,885 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:28,891 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:29,896 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:30,901 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:31,906 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:32,908 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:33,913 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:34,918 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:35,923 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:36,929 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:37,934 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:38,940 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:39,945 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:40,950 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:41,956 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:42,961 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:43,966 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:44,972 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:45,977 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:46,980 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:47,985 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:48,991 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:49,996 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:29:58,896 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:29:58,897 - security_monitor - INFO - Ağ trafiği yakalama başlatıldı: en0
+2025-05-17 17:29:58,897 - security_monitor - ERROR - Paket yakalama hatası: Permission denied: could not open /dev/bpf0. Make sure to be running Scapy as root ! (sudo)
+2025-05-17 17:29:58,897 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2025-05-17 17:29:58,900 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+2025-05-17 17:29:58,900 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-17 17:30:02,293 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET / HTTP/1.1" 200 -
+2025-05-17 17:30:02,299 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/deps/polyfill@7.v2_14_2m1747492089.12.1.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,300 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/deps/react@16.v2_14_2m1747492089.14.0.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,300 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/deps/react-dom@16.v2_14_2m1747492089.14.0.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,302 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/deps/prop-types@15.v2_14_2m1747492089.8.1.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,302 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1747492089.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,305 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_2m1747492089.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,305 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1747492089.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,306 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1747492089.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,306 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1747492089.js HTTP/1.1" 200 -
+2025-05-17 17:30:02,307 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:02] "GET /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1747492089.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:03,106 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "GET /_dash-layout HTTP/1.1" 200 -
+2025-05-17 17:30:03,107 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "GET /_dash-dependencies HTTP/1.1" 200 -
+2025-05-17 17:30:03,113 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "GET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1" 200 -
+2025-05-17 17:30:03,118 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "GET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1" 200 -
+2025-05-17 17:30:03,121 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:03,121 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:03,270 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:03] "GET /_favicon.ico?v=2.14.2 HTTP/1.1" 200 -
+2025-05-17 17:30:08,135 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:08,136 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:08] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:13,128 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:13,128 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:13] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:18,130 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:18,131 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:18] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:23,130 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:23,130 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:23] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:28,136 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:28,136 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:28] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:29,776 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "GET / HTTP/1.1" 200 -
+2025-05-17 17:30:29,798 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "GET /_dash-layout HTTP/1.1" 200 -
+2025-05-17 17:30:29,799 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "GET /_dash-dependencies HTTP/1.1" 200 -
+2025-05-17 17:30:29,804 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+2025-05-17 17:30:29,806 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:29,806 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:29,809 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:29] "[36mGET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1[0m" 304 -
+2025-05-17 17:30:34,817 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:34,817 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:34] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:39,821 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:39,821 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:39] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:40,809 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "GET / HTTP/1.1" 200 -
+2025-05-17 17:30:40,831 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "GET /_dash-layout HTTP/1.1" 200 -
+2025-05-17 17:30:40,833 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "GET /_dash-dependencies HTTP/1.1" 200 -
+2025-05-17 17:30:40,837 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+2025-05-17 17:30:40,839 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:40,840 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:40,844 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:40] "[36mGET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1[0m" 304 -
+2025-05-17 17:30:45,851 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:45,851 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:45] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:50,852 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:50,853 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:50] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:30:55,846 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:30:55,846 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:30:55] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:00,852 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:00,853 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:00] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:05,852 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:05,852 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:05] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:10,855 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:10,855 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:10] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:15,853 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:15,854 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:15] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:20,854 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:20,855 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:20] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:25,857 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:25,858 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:25] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:30,926 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:30,926 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:30] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:35,916 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:35,916 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:35] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:40,918 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:40,919 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:40] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:45,924 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:45,924 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:45] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:50,919 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:50,919 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:50] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:31:55,921 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:31:55,922 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:31:55] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:00,922 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:00,922 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:00] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:01,399 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "GET / HTTP/1.1" 200 -
+2025-05-17 17:32:01,448 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "GET /_dash-layout HTTP/1.1" 200 -
+2025-05-17 17:32:01,448 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "GET /_dash-dependencies HTTP/1.1" 200 -
+2025-05-17 17:32:01,453 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+2025-05-17 17:32:01,456 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:01,456 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:01,458 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:01] "[36mGET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1[0m" 304 -
+2025-05-17 17:32:06,464 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:06,464 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:06] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:11,461 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:11,461 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:11] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:16,463 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:16,463 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:16] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:21,469 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:21,470 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:21] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:26,468 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:26,469 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:26] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:31,473 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:31,474 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:31] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:36,472 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:36,473 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:36] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:41,470 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:41,471 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:41] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:46,477 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:46,478 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:46] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:51,477 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:51,478 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:51] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:32:56,475 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:32:56,476 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:32:56] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:01,550 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:01,550 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:01] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:06,480 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:06,481 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:06] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:09,067 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "GET / HTTP/1.1" 200 -
+2025-05-17 17:33:09,094 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "GET /_dash-layout HTTP/1.1" 200 -
+2025-05-17 17:33:09,095 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "GET /_dash-dependencies HTTP/1.1" 200 -
+2025-05-17 17:33:09,102 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+2025-05-17 17:33:09,103 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:09,104 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:09,109 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:09] "[36mGET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1[0m" 304 -
+2025-05-17 17:33:14,115 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:14,116 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:14] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:19,116 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:19,116 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:19] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:24,119 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:24,120 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:24] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:29,112 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:29,113 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:29] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:34,118 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:34,119 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:34] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:39,121 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:39,122 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:39] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:44,118 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:44,119 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:44] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:49,121 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:49,121 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:49] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:54,115 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:54,115 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:54] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:33:59,121 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:33:59,122 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:33:59] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:04,203 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:04,204 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:04] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:09,124 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:09,124 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:09] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:14,132 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:14,133 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:14] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:19,125 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:19,126 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:19] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:24,124 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:24,124 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:24] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:29,127 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:29,128 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:29] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:34:34,128 - security_monitor - ERROR - Grafik güncelleme hatası: 'timestamp'
+2025-05-17 17:34:34,129 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 17:34:34] "POST /_dash-update-component HTTP/1.1" 200 -
+2025-05-17 17:35:10,078 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:35:10,079 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-17 17:36:10,343 - security_monitor - INFO - Modeller 175 girdi ile eğitiliyor...
+2025-05-17 17:36:11,574 - security_monitor - WARNING - Bot Aktivitesi tespiti: 21.80.205.179 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:36:11,978 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 204.94.182.47 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:12,409 - security_monitor - WARNING - Bot Aktivitesi tespiti: 92.221.110.2 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:36:12,802 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 122.90.35.72 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:13,330 - security_monitor - WARNING - Bot Aktivitesi tespiti: 182.60.0.168 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:36:13,887 - security_monitor - WARNING - Bot Aktivitesi tespiti: 123.248.17.212 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:36:14,418 - security_monitor - WARNING - Bot Aktivitesi tespiti: 139.199.63.243 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:36:14,787 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 29.94.24.9 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:15,157 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 17.243.50.216 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:15,689 - security_monitor - WARNING - Bot Aktivitesi tespiti: 147.139.68.150 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-17 17:36:16,128 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 151.238.1.111 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:16,780 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 66.180.109.56 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:17,190 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 98.169.14.143 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:17,564 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 82.100.223.40 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:17,956 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 100.71.123.119 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:18,336 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 3.241.73.88 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:18,785 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 161.193.236.8 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:19,165 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 149.134.235.97 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:19,677 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 175.198.105.248 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:20,242 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 113.88.195.106 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:20,602 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 67.56.144.154 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:20,934 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 25.72.86.44 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:21,354 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 137.50.159.100 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:21,834 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 103.145.167.204 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:22,128 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 199.61.1.67 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:22,790 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 105.76.36.66 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:23,318 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 92.2.114.145 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:23,679 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 196.194.10.217 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:36:24,006 - security_monitor - WARNING - Bot Aktivitesi tespiti: 1.145.7.44 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:37:24,238 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:38:24,476 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:39:24,721 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:40:25,326 - security_monitor - WARNING - Bot Aktivitesi tespiti: 112.123.66.138 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:40:25,633 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 203.20.152.43 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:26,060 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 241.86.228.166 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:26,430 - security_monitor - WARNING - Bot Aktivitesi tespiti: 113.204.185.23 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:40:27,010 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 107.72.71.236 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:27,389 - security_monitor - WARNING - Bot Aktivitesi tespiti: 129.252.52.41 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:40:27,689 - security_monitor - WARNING - Bot Aktivitesi tespiti: 156.82.216.87 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:40:28,115 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 115.210.142.175 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:28,441 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 73.127.147.184 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:28,802 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 147.229.108.176 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:29,144 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 199.211.167.114 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:29,520 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 217.90.37.63 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:29,932 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 43.37.138.214 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:30,397 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 238.137.182.223 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:30,831 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 155.143.165.35 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:31,222 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 250.55.245.72 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:31,574 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 219.36.14.19 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:31,883 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 147.52.100.16 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:32,375 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 1.105.20.241 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:32,811 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 142.117.50.241 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:33,227 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 135.70.212.93 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:33,563 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 166.231.21.38 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:33,840 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 6.205.222.147 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:40:34,218 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 1.8.237.91 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:34,786 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 153.218.231.31 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:35,090 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 80.14.31.68 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:35,519 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 97.57.245.130 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:35,871 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 186.148.156.56 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:36,185 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 54.184.221.147 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:41:36,604 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 180.225.96.129 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:44:54,136 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-17 17:44:57,698 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:44:57,698 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-17 17:45:58,476 - security_monitor - WARNING - Bot Aktivitesi tespiti: 163.203.206.39 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-17 17:45:58,874 - security_monitor - WARNING - Bot Aktivitesi tespiti: 25.235.166.250 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-17 17:45:59,357 - security_monitor - WARNING - Bot Aktivitesi tespiti: 68.250.172.218 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:45:59,719 - security_monitor - WARNING - Bot Aktivitesi tespiti: 50.0.103.163 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:46:00,138 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 36.232.80.70 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:00,607 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 196.126.154.92 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:01,503 - security_monitor - WARNING - Bot Aktivitesi tespiti: 30.134.96.231 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-17 17:46:01,956 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 169.64.36.11 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:02,310 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 130.84.89.233 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:02,756 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 91.251.122.212 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:03,163 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 97.4.56.12 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:46:03,577 - security_monitor - WARNING - Bot Aktivitesi tespiti: 189.19.18.126 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-17 17:46:03,983 - security_monitor - WARNING - Bot Aktivitesi tespiti: 35.243.116.207 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:46:04,548 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 93.164.68.236 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:05,113 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 117.153.177.254 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:05,642 - security_monitor - WARNING - Bot Aktivitesi tespiti: 60.215.250.135 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:47:06,051 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 137.232.242.232 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:06,461 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 28.207.27.185 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:06,875 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 26.22.52.58 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:07,271 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 204.117.194.44 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:07,576 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 218.197.3.198 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:08,067 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 163.2.25.105 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:08,596 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 126.12.157.206 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:08,998 - security_monitor - WARNING - Bot Aktivitesi tespiti: 112.168.89.201 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:47:09,365 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 87.74.77.91 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:47:59,071 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-17 17:48:02,428 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-17 17:48:02,428 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-17 17:49:03,258 - security_monitor - WARNING - Bot Aktivitesi tespiti: 201.170.193.107 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:49:03,797 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 212.68.92.120 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:04,205 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 125.93.167.65 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:04,612 - security_monitor - WARNING - Bot Aktivitesi tespiti: 252.200.17.44 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:49:04,938 - security_monitor - WARNING - Bot Aktivitesi tespiti: 229.183.173.154 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-17 17:49:05,315 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 76.58.98.118 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:05,738 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 224.186.175.120 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:06,123 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 88.250.254.59 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:06,948 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 62.80.78.6 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:07,358 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 24.144.181.17 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:07,670 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 140.8.186.15 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:08,054 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 10.131.74.115 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:08,371 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 1.83.161.51 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:08,752 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 153.4.101.115 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:09,201 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 87.58.195.76 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:09,642 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 213.2.244.91 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:10,023 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 62.94.200.71 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:10,713 - security_monitor - WARNING - Bot Aktivitesi tespiti: 102.71.214.196 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:49:11,114 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 83.90.226.26 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:11,582 - security_monitor - WARNING - Bot Aktivitesi tespiti: 56.187.170.37 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-17 17:49:11,959 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 119.248.49.128 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:12,320 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 40.189.6.247 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:49:12,771 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 175.167.37.165 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:50:13,505 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 134.226.97.190 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:50:13,927 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 195.215.103.67 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:50:14,327 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 25.231.41.40 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:50:14,749 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 255.67.190.143 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-17 17:52:15,239 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-17 17:52:47,213 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu

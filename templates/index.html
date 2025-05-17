@@ -13,6 +13,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
         :root {
             --primary-color: #00f2ff;
@@ -370,455 +376,611 @@
         .path {
             color: #7a8ba1;
         }
+
+        .analytics-card {
+            background-color: var(--bg-light);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+
+        .analytics-title {
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .analytics-value {
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .analytics-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        #attack-map {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .trend-indicator {
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .trend-up {
+            color: var(--danger-color);
+        }
+
+        .trend-down {
+            color: var(--success-color);
+        }
+
+        .attack-badge {
+            background-color: var(--bg-darker);
+            color: var(--danger-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .top-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-list-item {
+            padding: 8px;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-list-item:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-shield-alt me-2"></i>
-                SecuAI-<span class="typing-effect">Watchdog</span>
+                <i class="fas fa-shield-alt"></i> SecuAI-Watchdog
             </a>
-            <div class="d-flex">
-                <div class="navbar-text me-3">
-                    <div id="threat-status-indicator" class="threat-status success"></div>
-                    <i class="fas fa-radiation text-warning me-1"></i>
-                    Tehdit Durumu: <span id="threat-count" class="threat-count pulse">0</span>
-                </div>
-                <div class="navbar-text">
-                    <i class="fas fa-terminal me-1"></i>
-                    <span id="current-time"></span>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
-            <div class="col-12">
-                <ul class="nav nav-tabs" id="logTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="access-tab" data-bs-toggle="tab"
-                            data-bs-target="#access-logs" type="button" role="tab" aria-controls="access-logs"
-                            aria-selected="true">
-                            <i class="fas fa-server me-1"></i>
-                            Web Erişim Logları
-                            <span id="access-count" class="badge badge-count">0</span>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security-logs"
-                            type="button" role="tab" aria-controls="security-logs" aria-selected="false">
-                            <i class="fas fa-shield-alt me-1"></i>
-                            Güvenlik Logları
-                            <span id="security-count" class="badge badge-count">0</span>
-                        </button>
-                    </li>
-                </ul>
+            <!-- Analytics Overview -->
+            <div class="col-md-3">
+                <div class="analytics-card">
+                    <div class="analytics-title">Toplam İstek</div>
+                    <div class="analytics-value" id="total-requests">0</div>
+                    <div class="analytics-label">Son 24 saat</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="analytics-card">
+                    <div class="analytics-title">Tespit Edilen Saldırılar</div>
+                    <div class="analytics-value" id="total-attacks">0</div>
+                    <div class="analytics-label">Son 24 saat</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="analytics-card">
+                    <div class="analytics-title">Benzersiz IP'ler</div>
+                    <div class="analytics-value" id="unique-ips">0</div>
+                    <div class="analytics-label">Son 24 saat</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="analytics-card">
+                    <div class="analytics-title">Ortalama Yanıt Süresi</div>
+                    <div class="analytics-value" id="avg-response">0ms</div>
+                    <div class="analytics-label">Son 24 saat</div>
+                </div>
+            </div>
+        </div>
 
-                <div class="tab-content" id="logTabsContent">
-                    <!-- Access Logs Tab -->
-                    <div class="tab-pane fade show active" id="access-logs" role="tabpanel"
-                        aria-labelledby="access-tab">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-server me-1"></i> Web Erişim Logları</span>
-                                <div class="btn-toolbar">
-                                    <button class="btn btn-sm btn-filter active" data-filter="all">Tümü</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="2xx">2xx</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="3xx">3xx</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="4xx">4xx</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="5xx">5xx</button>
-                                    <button class="btn btn-sm btn-outline-secondary ms-2"
-                                        id="clear-access-logs">Temizle</button>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div id="access-log-container" class="log-container"></div>
-                            </div>
-                            <div class="status-bar d-flex justify-content-between">
-                                <div class="auto-scroll">
-                                    <input type="checkbox" id="auto-scroll-access" checked>
-                                    <label for="auto-scroll-access">Otomatik Kaydır</label>
-                                </div>
-                                <div>
-                                    <span id="access-log-count">0</span> satır
-                                </div>
-                            </div>
-                        </div>
+        <div class="row mt-4">
+            <!-- Traffic Trend -->
+            <div class="col-md-6">
+                <div class="analytics-card">
+                    <div class="analytics-title">Trafik Trendi</div>
+                    <div class="chart-container">
+                        <canvas id="traffic-trend"></canvas>
                     </div>
+                    <div class="chart-legend">
+                        <span class="legend-item"><i class="fas fa-circle text-primary"></i> Normal Trafik</span>
+                        <span class="legend-item"><i class="fas fa-circle text-danger"></i> Saldırı Trafiği</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Attack Distribution -->
+            <div class="col-md-6">
+                <div class="analytics-card">
+                    <div class="analytics-title">Saldırı Dağılımı</div>
+                    <div class="chart-container">
+                        <canvas id="attack-distribution"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item"><i class="fas fa-shield-alt text-warning"></i> SQL Injection</span>
+                        <span class="legend-item"><i class="fas fa-bug text-danger"></i> XSS</span>
+                        <span class="legend-item"><i class="fas fa-hammer text-info"></i> Brute Force</span>
+                        <span class="legend-item"><i class="fas fa-bomb text-danger"></i> DDoS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Security Logs Tab -->
-                    <div class="tab-pane fade" id="security-logs" role="tabpanel" aria-labelledby="security-tab">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-shield-alt me-1"></i> Güvenlik Logları</span>
-                                <div class="btn-toolbar">
-                                    <button class="btn btn-sm btn-filter active" data-filter="all">Tümü</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="info">Bilgi</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="warning">Uyarı</button>
-                                    <button class="btn btn-sm btn-filter" data-filter="error">Hata</button>
-                                    <button class="btn btn-sm btn-outline-secondary ms-2"
-                                        id="clear-security-logs">Temizle</button>
-                                </div>
+        <div class="row mt-4">
+            <!-- Attack Map -->
+            <div class="col-md-8">
+                <div class="analytics-card">
+                    <div class="analytics-title">Saldırı Haritası</div>
+                    <div id="attack-map"></div>
+                </div>
+            </div>
+            <!-- Top Attackers -->
+            <div class="col-md-4">
+                <div class="analytics-card">
+                    <div class="analytics-title">En Aktif Saldırganlar</div>
+                    <ul class="top-list" id="top-attackers">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Log Viewer -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal"></i> Log Görüntüleyici
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-toolbar mb-3">
+                            <div class="btn-group me-2">
+                                <button class="btn btn-filter active" data-filter="all">Tümü</button>
+                                <button class="btn btn-filter" data-filter="error">Hatalar</button>
+                                <button class="btn btn-filter" data-filter="warning">Uyarılar</button>
+                                <button class="btn btn-filter" data-filter="info">Bilgi</button>
                             </div>
-                            <div class="card-body p-0">
-                                <div id="security-log-container" class="log-container"></div>
-                            </div>
-                            <div class="status-bar d-flex justify-content-between">
-                                <div class="auto-scroll">
-                                    <input type="checkbox" id="auto-scroll-security" checked>
-                                    <label for="auto-scroll-security">Otomatik Kaydır</label>
-                                </div>
-                                <div>
-                                    <span id="security-log-count">0</span> satır
-                                </div>
+                            <div class="auto-scroll">
+                                <input type="checkbox" id="auto-scroll" checked>
+                                <label for="auto-scroll">Otomatik Kaydır</label>
                             </div>
                         </div>
+                        <div class="log-container" id="log-container"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap, jQuery, Socket.IO -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+
     <script>
-        $(document).ready(function () {
-            let socket = io();
-            let accessLogCount = 0;
-            let securityLogCount = 0;
-            let threatCount = 0;
-            let accessFilter = 'all';
-            let securityFilter = 'all';
+        // Socket.IO bağlantısı
+        const socket = io();
+        let trafficTrendChart = null;
+        let attackDistributionChart = null;
+        let attackMap = null;
+        let currentFilter = 'all';
 
-            // Typing effect for brand name
-            const brandText = "Watchdog";
-            let i = 0;
-            $('.typing-effect').text('');
-            function typeWriter() {
-                if (i < brandText.length) {
-                    $('.typing-effect').text($('.typing-effect').text() + brandText.charAt(i));
-                    i++;
-                    setTimeout(typeWriter, 150);
-                }
-            }
-            typeWriter();
+        // Log filtreleme fonksiyonu
+        function filterLogs() {
+            const logLines = document.querySelectorAll('.log-line');
+            logLines.forEach(line => {
+                const isError = line.textContent.toLowerCase().includes('error');
+                const isWarning = line.textContent.toLowerCase().includes('warning');
+                const isInfo = line.textContent.toLowerCase().includes('info');
 
-            // Saat güncellemesi
-            function updateTime() {
-                const now = new Date();
-                $('#current-time').text(now.toLocaleTimeString());
-            }
-            setInterval(updateTime, 1000);
-            updateTime();
-
-            // Tehdit durumu indikatörünü güncelle
-            function updateThreatIndicator() {
-                const threatStatusEl = $('#threat-status-indicator');
-                if (threatCount === 0) {
-                    threatStatusEl.removeClass('warning danger').addClass('success');
-                } else if (threatCount < 5) {
-                    threatStatusEl.removeClass('success danger').addClass('warning');
-                } else {
-                    threatStatusEl.removeClass('success warning').addClass('danger');
-                }
-            }
-
-            // Access log satırı formatla
-            function formatAccessLog(logLine) {
-                try {
-                    // IP adresi
-                    const ipMatch = logLine.match(/^(\d+\.\d+\.\d+\.\d+)/);
-                    const ip = ipMatch ? ipMatch[1] : '';
-
-                    // Zaman damgası
-                    const timestampMatch = logLine.match(/\[(.*?)\]/);
-                    const timestamp = timestampMatch ? timestampMatch[1] : '';
-
-                    // HTTP metodu
-                    const methodMatch = logLine.match(/"(GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH)/)
-                    const method = methodMatch ? methodMatch[1] : '';
-                    let methodClass = '';
-                    if (method === 'GET') methodClass = 'method-get';
-                    else if (method === 'POST') methodClass = 'method-post';
-                    else if (method === 'DELETE') methodClass = 'method-delete';
-
-                    // Yol
-                    const pathMatch = logLine.match(/"(?:GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH) ([^"]*) HTTP/);
-                    const path = pathMatch ? pathMatch[1] : '';
-
-                    // HTTP durum kodu
-                    const statusMatch = logLine.match(/" (\d{3}) /);
-                    const status = statusMatch ? statusMatch[1] : '';
-                    let statusClass = '';
-                    if (status.startsWith('2')) statusClass = 'status-2xx';
-                    else if (status.startsWith('3')) statusClass = 'status-3xx';
-                    else if (status.startsWith('4')) statusClass = 'status-4xx';
-                    else if (status.startsWith('5')) statusClass = 'status-5xx';
-
-                    // User-Agent
-                    const uaMatch = logLine.match(/"([^"]*)" "([^"]*)"/);
-                    const userAgent = uaMatch ? uaMatch[2] : '';
-
-                    const formattedLog = `
-                        <span class="timestamp">[${timestamp}]</span>
-                        <span class="ip">${ip}</span>
-                        <span class="${methodClass}">${method}</span>
-                        <span class="path">${path}</span>
-                        <span class="${statusClass}">${status}</span>
-                        <small class="text-muted">${userAgent.substring(0, 40)}${userAgent.length > 40 ? '...' : ''}</small>
-                    `;
-
-                    return formattedLog;
-                } catch (e) {
-                    console.error('Log formatlanırken hata:', e);
-                    return logLine;
-                }
-            }
-
-            // Security log satırı formatla
-            function formatSecurityLog(logLine) {
-                try {
-                    // Zaman damgası
-                    const timestampMatch = logLine.match(/^(.*?) - /);
-                    const timestamp = timestampMatch ? timestampMatch[1] : '';
-
-                    // Log seviyesi
-                    let logClass = 'security-info';
-                    if (logLine.includes('WARNING')) {
-                        logClass = 'security-warning';
-                    } else if (logLine.includes('ERROR')) {
-                        logClass = 'security-error';
-                    }
-
-                    let formattedText = logLine.replace(timestamp + ' - ', '');
-
-                    // Tehdit loglarında özel vurgulamalar
-                    if (logLine.includes('tespiti:')) {
-                        const ipMatch = formattedText.match(/(\d+\.\d+\.\d+\.\d+)/);
-                        if (ipMatch) {
-                            formattedText = formattedText.replace(
-                                ipMatch[1],
-                                `<span class="ip">${ipMatch[1]}</span>`
-                            );
-                        }
-
-                        // Tehdit türünü vurgula
-                        const threatMatch = formattedText.match(/(Brute Force|Bot Aktivitesi|Yüksek Hata Oranı|Çoklu Parmak İzi|Yüksek Frekans|Anormal Davranış|LSTM Anomalisi)/);
-                        if (threatMatch) {
-                            formattedText = formattedText.replace(
-                                threatMatch[1],
-                                `<strong>${threatMatch[1]}</strong>`
-                            );
-                        }
-                    }
-
-                    const formattedLog = `
-                        <span class="timestamp">${timestamp}</span>
-                        <span class="${logClass}">${formattedText}</span>
-                    `;
-
-                    // Tehdit sayacı
-                    if (logLine.includes('tespiti:')) {
-                        threatCount++;
-                        $('#threat-count').text(threatCount);
-                        updateThreatIndicator();
-
-                        // Tehdit tespit edildiğinde bir görsel efekt ekle
-                        const newLogLine = $(`<div class="log-line">${formattedLog}</div>`);
-                        newLogLine.css('background-color', 'rgba(255, 0, 60, 0.1)');
-                        setTimeout(() => {
-                            newLogLine.css('background-color', 'transparent');
-                            newLogLine.css('transition', 'background-color 1s ease');
-                        }, 100);
-
-                        return newLogLine;
-                    }
-
-                    return formattedLog;
-                } catch (e) {
-                    console.error('Security log formatlanırken hata:', e);
-                    return logLine;
-                }
-            }
-
-            // Filtreleme
-            $('.btn-filter').click(function () {
-                const filter = $(this).data('filter');
-                const tabContent = $(this).closest('.card');
-
-                // Aktif filtre düğmesinin stilini değiştir
-                $(this).siblings().removeClass('active');
-                $(this).addClass('active');
-
-                if (tabContent.parent().attr('id') === 'access-logs') {
-                    accessFilter = filter;
-                    filterAccessLogs();
-                } else {
-                    securityFilter = filter;
-                    filterSecurityLogs();
+                switch (currentFilter) {
+                    case 'error':
+                        line.style.display = isError ? 'block' : 'none';
+                        break;
+                    case 'warning':
+                        line.style.display = isWarning ? 'block' : 'none';
+                        break;
+                    case 'info':
+                        line.style.display = isInfo ? 'block' : 'none';
+                        break;
+                    default:
+                        line.style.display = 'block';
                 }
             });
+        }
 
-            // Access loglarını filtrele
-            function filterAccessLogs() {
-                $('#access-log-container .log-line').show();
-
-                if (accessFilter !== 'all') {
-                    if (accessFilter === '2xx') {
-                        $('#access-log-container .log-line:not(:contains(" 2"))').hide();
-                    } else if (accessFilter === '3xx') {
-                        $('#access-log-container .log-line:not(:contains(" 3"))').hide();
-                    } else if (accessFilter === '4xx') {
-                        $('#access-log-container .log-line:not(:contains(" 4"))').hide();
-                    } else if (accessFilter === '5xx') {
-                        $('#access-log-container .log-line:not(:contains(" 5"))').hide();
-                    }
-                }
-            }
-
-            // Security loglarını filtrele
-            function filterSecurityLogs() {
-                $('#security-log-container .log-line').show();
-
-                if (securityFilter !== 'all') {
-                    if (securityFilter === 'info') {
-                        $('#security-log-container .log-line:not(:contains("INFO"))').hide();
-                    } else if (securityFilter === 'warning') {
-                        $('#security-log-container .log-line:not(:contains("WARNING"))').hide();
-                    } else if (securityFilter === 'error') {
-                        $('#security-log-container .log-line:not(:contains("ERROR"))').hide();
-                    }
-                }
-            }
-
-            // Temizleme düğmeleri
-            $('#clear-access-logs').click(function () {
-                $('#access-log-container').empty();
-                accessLogCount = 0;
-                $('#access-log-count').text(accessLogCount);
-                $('#access-count').text(accessLogCount);
+        // Filtre butonlarına tıklama olayı ekle
+        document.querySelectorAll('.btn-filter').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentFilter = button.dataset.filter;
+                filterLogs();
             });
-
-            $('#clear-security-logs').click(function () {
-                $('#security-log-container').empty();
-                securityLogCount = 0;
-                $('#security-log-count').text(securityLogCount);
-                $('#security-count').text(securityLogCount);
-                threatCount = 0;
-                $('#threat-count').text(threatCount);
-                updateThreatIndicator();
-            });
-
-            // Log satırı ekle (animasyonlu)
-            function appendLogLine(container, content, isHtml = false) {
-                const logLine = $('<div class="log-line"></div>');
-
-                if (isHtml) {
-                    logLine.append(content);
-                } else {
-                    logLine.html(content);
-                }
-
-                logLine.css('opacity', 0);
-                $(container).append(logLine);
-
-                // Fade-in efekti
-                setTimeout(() => {
-                    logLine.css('transition', 'opacity 0.3s ease');
-                    logLine.css('opacity', 1);
-                }, 10);
-
-                return logLine;
-            }
-
-            // Access logları için Socket.IO olayları
-            socket.on('initial_access_logs', function (data) {
-                data.logs.forEach(function (logLine) {
-                    appendLogLine('#access-log-container', formatAccessLog(logLine));
-                });
-
-                accessLogCount = data.logs.length;
-                $('#access-log-count').text(accessLogCount);
-                $('#access-count').text(accessLogCount);
-
-                if ($('#auto-scroll-access').is(':checked')) {
-                    $('#access-log-container').scrollTop($('#access-log-container')[0].scrollHeight);
-                }
-
-                filterAccessLogs();
-            });
-
-            socket.on('new_access_logs', function (data) {
-                data.logs.forEach(function (logLine) {
-                    appendLogLine('#access-log-container', formatAccessLog(logLine));
-                });
-
-                accessLogCount += data.logs.length;
-                $('#access-log-count').text(accessLogCount);
-                $('#access-count').text(accessLogCount);
-
-                if ($('#auto-scroll-access').is(':checked')) {
-                    $('#access-log-container').scrollTop($('#access-log-container')[0].scrollHeight);
-                }
-
-                filterAccessLogs();
-            });
-
-            // Security logları için Socket.IO olayları
-            socket.on('initial_security_logs', function (data) {
-                data.logs.forEach(function (logLine) {
-                    const formattedLog = formatSecurityLog(logLine);
-                    if (formattedLog instanceof jQuery) {
-                        $('#security-log-container').append(formattedLog);
-                    } else {
-                        appendLogLine('#security-log-container', formattedLog);
-                    }
-                });
-
-                securityLogCount = data.logs.length;
-                $('#security-log-count').text(securityLogCount);
-                $('#security-count').text(securityLogCount);
-
-                if ($('#auto-scroll-security').is(':checked')) {
-                    $('#security-log-container').scrollTop($('#security-log-container')[0].scrollHeight);
-                }
-
-                filterSecurityLogs();
-            });
-
-            socket.on('new_security_logs', function (data) {
-                data.logs.forEach(function (logLine) {
-                    const formattedLog = formatSecurityLog(logLine);
-                    if (formattedLog instanceof jQuery) {
-                        $('#security-log-container').append(formattedLog);
-                    } else {
-                        appendLogLine('#security-log-container', formattedLog);
-                    }
-                });
-
-                securityLogCount += data.logs.length;
-                $('#security-log-count').text(securityLogCount);
-                $('#security-count').text(securityLogCount);
-
-                if ($('#auto-scroll-security').is(':checked')) {
-                    $('#security-log-container').scrollTop($('#security-log-container')[0].scrollHeight);
-                }
-
-                filterSecurityLogs();
-            });
-
-            // Radar animasyonu
-            setInterval(() => {
-                if (threatCount > 0) {
-                    $('.threat-count').toggleClass('pulse');
-                }
-            }, 2000);
         });
+
+        // Log satırı oluşturma fonksiyonu
+        function createLogLine(log, type = 'access') {
+            const logLine = document.createElement('div');
+            logLine.className = 'log-line';
+
+            // Log tipine göre stil ekle
+            if (type === 'security') {
+                if (log.toLowerCase().includes('error')) {
+                    logLine.classList.add('security-error');
+                } else if (log.toLowerCase().includes('warning')) {
+                    logLine.classList.add('security-warning');
+                } else {
+                    logLine.classList.add('security-info');
+                }
+            } else {
+                if (log.includes('GET')) {
+                    logLine.classList.add('method-get');
+                } else if (log.includes('POST')) {
+                    logLine.classList.add('method-post');
+                } else if (log.includes('DELETE')) {
+                    logLine.classList.add('method-delete');
+                }
+
+                // Status code'a göre stil ekle
+                const statusMatch = log.match(/" (\d{3}) /);
+                if (statusMatch) {
+                    const status = statusMatch[1];
+                    if (status.startsWith('2')) {
+                        logLine.classList.add('status-2xx');
+                    } else if (status.startsWith('3')) {
+                        logLine.classList.add('status-3xx');
+                    } else if (status.startsWith('4')) {
+                        logLine.classList.add('status-4xx');
+                    } else if (status.startsWith('5')) {
+                        logLine.classList.add('status-5xx');
+                    }
+                }
+            }
+
+            logLine.textContent = log;
+            return logLine;
+        }
+
+        // Socket.IO olaylarını dinle
+        socket.on('connect', () => {
+            console.log('Socket.IO bağlantısı kuruldu');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Socket.IO bağlantısı kesildi');
+        });
+
+        socket.on('connect_error', (error) => {
+            console.error('Socket.IO bağlantı hatası:', error);
+        });
+
+        socket.on('analytics_update', (data) => {
+            console.log('Analitik verileri alındı:', data);
+            updateAnalytics(data);
+        });
+
+        socket.on('new_access_logs', (data) => {
+            console.log('Yeni access logları alındı:', data.logs.length);
+            const logContainer = document.getElementById('log-container');
+            data.logs.forEach(log => {
+                const logLine = createLogLine(log, 'access');
+                logContainer.appendChild(logLine);
+            });
+
+            if (document.getElementById('auto-scroll').checked) {
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+            filterLogs();
+        });
+
+        socket.on('new_security_logs', (data) => {
+            console.log('Yeni security logları alındı:', data.logs.length);
+            const logContainer = document.getElementById('log-container');
+            data.logs.forEach(log => {
+                const logLine = createLogLine(log, 'security');
+                logContainer.appendChild(logLine);
+            });
+
+            if (document.getElementById('auto-scroll').checked) {
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+            filterLogs();
+        });
+
+        socket.on('initial_access_logs', (data) => {
+            console.log('İlk access logları alındı:', data.logs.length);
+            const logContainer = document.getElementById('log-container');
+            data.logs.forEach(log => {
+                const logLine = createLogLine(log, 'access');
+                logContainer.appendChild(logLine);
+            });
+            filterLogs();
+        });
+
+        socket.on('initial_security_logs', (data) => {
+            console.log('İlk security logları alındı:', data.logs.length);
+            const logContainer = document.getElementById('log-container');
+            data.logs.forEach(log => {
+                const logLine = createLogLine(log, 'security');
+                logContainer.appendChild(logLine);
+            });
+            filterLogs();
+        });
+
+        // Sayfa yüklendiğinde grafikleri başlat
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+        });
+
+        // Grafikleri başlat
+        function initCharts() {
+            // Trafik trendi grafiği
+            const trafficCtx = document.getElementById('traffic-trend').getContext('2d');
+            trafficTrendChart = new Chart(trafficCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+                    datasets: [
+                        {
+                            label: 'Normal Trafik',
+                            data: Array(24).fill(0),
+                            borderColor: '#00f2ff',
+                            tension: 0.4,
+                            fill: true,
+                            backgroundColor: 'rgba(0, 242, 255, 0.1)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Saldırı Trafiği',
+                            data: Array(24).fill(0),
+                            borderColor: '#ff003c',
+                            tension: 0.4,
+                            fill: true,
+                            backgroundColor: 'rgba(255, 0, 60, 0.1)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 0
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function (context) {
+                                    return `${context.dataset.label}: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 242, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8892b0',
+                                precision: 0
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 242, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8892b0'
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+
+            // Saldırı dağılımı grafiği
+            const attackCtx = document.getElementById('attack-distribution').getContext('2d');
+            attackDistributionChart = new Chart(attackCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            '#ffcc00', // SQL Injection
+                            '#ff003c', // XSS
+                            '#00c8ff', // Brute Force
+                            '#ff6b6b', // DDoS
+                            '#4ecdc4', // Path Traversal
+                            '#45b7d1', // Command Injection
+                            '#96ceb4'  // Diğer
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Saldırı haritası
+            attackMap = L.map('attack-map').setView([0, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(attackMap);
+        }
+
+        // Analiz verilerini güncelle
+        function updateAnalytics(data) {
+            console.log('Gelen analitik veriler:', data);
+
+            // Toplam istek sayısı
+            document.getElementById('total-requests').textContent = data.traffic_stats.total_requests || 0;
+
+            // Toplam saldırı sayısı
+            const totalAttacks = Object.values(data.traffic_stats.attack_types || {}).reduce((a, b) => a + b, 0);
+            const totalAttacksElement = document.getElementById('total-attacks');
+            totalAttacksElement.textContent = totalAttacks;
+
+            // Saldırı sayısı değiştiğinde animasyon ekle
+            if (totalAttacks > 0) {
+                totalAttacksElement.classList.add('pulse');
+                setTimeout(() => {
+                    totalAttacksElement.classList.remove('pulse');
+                }, 2000);
+            }
+
+            // Benzersiz IP sayısı
+            document.getElementById('unique-ips').textContent = Object.keys(data.traffic_stats.requests_by_ip || {}).length;
+
+            // Trafik trendi grafiğini güncelle
+            if (data.hourly_trend) {
+                console.log('Saatlik veriler:', data.hourly_trend);
+                const hourlyData = Array(24).fill(0);
+                const attackHourlyData = Array(24).fill(0);
+
+                // Normal trafik ve saldırı trafiğini ayır
+                Object.entries(data.hourly_trend).forEach(([hour, count]) => {
+                    const hourIndex = parseInt(hour);
+                    if (data.traffic_stats.attack_types && Object.values(data.traffic_stats.attack_types).some(v => v > 0)) {
+                        attackHourlyData[hourIndex] = count;
+                    } else {
+                        hourlyData[hourIndex] = count;
+                    }
+                });
+
+                if (trafficTrendChart) {
+                    trafficTrendChart.data.datasets[0].data = hourlyData;
+                    trafficTrendChart.data.datasets[1].data = attackHourlyData;
+                    trafficTrendChart.update('none');
+                    console.log('Trafik trendi grafiği güncellendi:', { normal: hourlyData, attack: attackHourlyData });
+                }
+            }
+
+            // Saldırı dağılımı grafiğini güncelle
+            if (data.attack_distribution) {
+                const attackTypes = Object.keys(data.attack_distribution);
+                const attackCounts = Object.values(data.attack_distribution);
+
+                if (attackDistributionChart) {
+                    attackDistributionChart.data.labels = attackTypes;
+                    attackDistributionChart.data.datasets[0].data = attackCounts;
+                    attackDistributionChart.update('none');
+
+                    // Göstergeyi güncelle
+                    const legendContainer = document.querySelector('#attack-distribution').closest('.analytics-card').querySelector('.chart-legend');
+                    legendContainer.innerHTML = '';
+
+                    attackTypes.forEach((type, index) => {
+                        const icon = getAttackIcon(type);
+                        const color = getAttackColor(type);
+                        const count = attackCounts[index];
+                        const li = document.createElement('span');
+                        li.className = 'legend-item';
+                        li.innerHTML = `<i class="fas ${icon} ${color}"></i> ${type} (${count})`;
+                        legendContainer.appendChild(li);
+                    });
+                }
+            }
+
+            // En aktif saldırganları güncelle
+            if (data.top_ips) {
+                const topAttackersList = document.getElementById('top-attackers');
+                topAttackersList.innerHTML = '';
+                Object.entries(data.top_ips).forEach(([ip, count]) => {
+                    const li = document.createElement('li');
+                    li.className = 'top-list-item';
+                    li.innerHTML = `
+                        <span class="ip">${ip}</span>
+                        <span class="badge bg-danger">${count}</span>
+                    `;
+                    topAttackersList.appendChild(li);
+                });
+            }
+        }
+
+        // Saldırı türüne göre ikon döndür
+        function getAttackIcon(type) {
+            const icons = {
+                'SQL Injection': 'fa-shield-alt',
+                'XSS': 'fa-bug',
+                'Brute Force': 'fa-hammer',
+                'DDoS': 'fa-bomb',
+                'Path Traversal': 'fa-folder-open',
+                'Command Injection': 'fa-terminal'
+            };
+            return icons[type] || 'fa-exclamation-triangle';
+        }
+
+        // Saldırı türüne göre renk sınıfı döndür
+        function getAttackColor(type) {
+            const colors = {
+                'SQL Injection': 'text-warning',
+                'XSS': 'text-danger',
+                'Brute Force': 'text-info',
+                'DDoS': 'text-danger',
+                'Path Traversal': 'text-warning',
+                'Command Injection': 'text-danger'
+            };
+            return colors[type] || 'text-secondary';
+        }
     </script>
 </body>
 
