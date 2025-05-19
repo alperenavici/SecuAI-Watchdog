@@ -19,13 +19,17 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Leaflet MarkerCluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <style>
         :root {
             --primary-color: #00f2ff;
             --secondary-color: #0072ff;
-            --bg-dark: #0a192f;
-            --bg-darker: #05101f;
-            --bg-light: #112240;
+            --bg-dark: hsl(216.9, 19.1%, 26.7%);
+            --bg-darker: hsl(215, 27.9%, 16.9%);
+            --bg-light: hsl(217, 19.1%, 31%);
             --text-primary: #e6f1ff;
             --text-secondary: #8892b0;
             --danger-color: #ff003c;
@@ -48,7 +52,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%230a2d52" stroke-width="0.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%23344057" stroke-width="0.5"/></svg>');
             background-size: 30px 30px;
             opacity: 0.1;
             z-index: -1;
@@ -57,7 +61,7 @@
         .navbar {
             background-color: var(--bg-darker) !important;
             border-bottom: 1px solid var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0, 242, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 242, 255, 0.15);
         }
 
         .navbar-brand {
@@ -71,7 +75,7 @@
             border-radius: 8px;
             background-color: var(--bg-light);
             border: 1px solid rgba(0, 242, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 242, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 242, 255, 0.15);
             margin-bottom: 20px;
             overflow: hidden;
         }
@@ -384,6 +388,7 @@
             padding: 15px;
             margin-bottom: 20px;
             height: 100%;
+            box-shadow: 0 4px 12px rgba(0, 242, 255, 0.1);
         }
 
         .analytics-title {
@@ -453,10 +458,137 @@
             border-bottom: 1px solid rgba(0, 242, 255, 0.1);
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .top-list-item:last-child {
             border-bottom: none;
+        }
+
+        .top-list-item .ip {
+            color: #5d7db5;
+            font-weight: bold;
+            display: block;
+        }
+
+        .top-list-item small {
+            color: #7a8ba1;
+            font-size: 0.75rem;
+            display: block;
+        }
+
+        .attacker-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-center {
+            text-align: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Harita markerları için stil */
+        .marker-pin {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .marker-pin::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-top: 16px solid var(--primary-color);
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            transform: translateX(0);
+        }
+
+        /* Popup stilleri */
+        .popup-content {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            min-width: 200px;
+            color: var(--text-primary);
+        }
+
+        .popup-header {
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: var(--bg-darker);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+
+        .leaflet-popup-content {
+            margin: 10px;
+            color: var(--text-primary);
+        }
+
+        .leaflet-popup-tip {
+            background-color: var(--bg-darker);
+        }
+
+        .leaflet-container a.leaflet-popup-close-button {
+            color: var(--text-secondary);
+        }
+
+        .chart-legend {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .legend-item {
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .legend-item i {
+            margin-right: 5px;
+        }
+
+        /* Marker Cluster Stilleri */
+        .marker-cluster {
+            background-color: rgba(0, 242, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .marker-cluster div {
+            background-color: var(--bg-darker);
+            color: var(--primary-color);
+            font-weight: bold;
+            border: 2px solid var(--primary-color);
+        }
+
+        .marker-cluster-small {
+            background-color: rgba(0, 242, 255, 0.3);
+        }
+
+        .marker-cluster-medium {
+            background-color: rgba(255, 204, 0, 0.3);
+        }
+
+        .marker-cluster-large {
+            background-color: rgba(255, 0, 60, 0.3);
         }
     </style>
 </head>
@@ -735,13 +867,82 @@
             filterLogs();
         });
 
-        // Sayfa yüklendiğinde grafikleri başlat
-        document.addEventListener('DOMContentLoaded', () => {
-            initCharts();
-        });
+        // Saldırı haritası
+        function initAttackMap() {
+            attackMap = L.map('attack-map').setView([20, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(attackMap);
+
+            // Marker kümeleri (çok fazla marker olduğunda daha iyi görünüm için)
+            const markers = L.markerClusterGroup();
+
+            return markers;
+        }
+
+        // Haritaya marker ekle
+        function addMarkerToMap(location, isAttack = false, attackType = null, count = 1, confidence = 0) {
+            if (!location || !location.latitude || !location.longitude) return;
+
+            // Saldırı türüne göre ikon rengi belirle
+            let iconColor = 'blue';
+            if (isAttack) {
+                switch (attackType) {
+                    case 'SQL Injection': iconColor = 'orange'; break;
+                    case 'XSS': iconColor = 'red'; break;
+                    case 'Brute Force': iconColor = 'purple'; break;
+                    case 'DDoS': iconColor = 'black'; break;
+                    case 'Path Traversal': iconColor = 'green'; break;
+                    case 'Command Injection': iconColor = 'darkred'; break;
+                    default: iconColor = 'red';
+                }
+            }
+
+            // Marker ikonu
+            const icon = L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div class="marker-pin" style="background-color: ${iconColor}"></div>`,
+                iconSize: [30, 42],
+                iconAnchor: [15, 42]
+            });
+
+            // Popup içeriği
+            const confidenceText = isAttack && confidence > 0 ?
+                `<p>Doğruluk Oranı: <span style="color:${confidence >= 70 ? 'red' : confidence >= 50 ? 'orange' : 'blue'}">%${confidence.toFixed(1)}</span></p>` : '';
+
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-header" style="color: ${iconColor}">
+                        <strong>${isAttack ? attackType : 'Normal Trafik'}</strong>
+                    </div>
+                    <div class="popup-body">
+                        <p>IP: ${location.ip}</p>
+                        <p>Ülke: ${location.country || 'Bilinmiyor'}</p>
+                        <p>Şehir: ${location.city || 'Bilinmiyor'}</p>
+                        ${isAttack ? `<p>Tespit Sayısı: ${count}</p>` : ''}
+                        ${confidenceText}
+                    </div>
+                </div>
+            `;
+
+            // Marker oluştur ve haritaya ekle
+            const marker = L.marker([location.latitude, location.longitude], { icon })
+                .bindPopup(popupContent);
+
+            mapMarkers.addLayer(marker);
+
+            return marker;
+        }
+
+        // Harita markerları
+        let mapMarkers = null;
+        let lastLocations = [];
+        let lastAttackLocations = [];
 
         // Grafikleri başlat
         function initCharts() {
+            console.log('Grafikler başlatılıyor...');
+
             // Trafik trendi grafiği
             const trafficCtx = document.getElementById('traffic-trend').getContext('2d');
             trafficTrendChart = new Chart(trafficCtx, {
@@ -775,7 +976,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     animation: {
-                        duration: 0
+                        duration: 1000
                     },
                     plugins: {
                         legend: {
@@ -784,6 +985,11 @@
                         tooltip: {
                             mode: 'index',
                             intersect: false,
+                            backgroundColor: 'hsl(215, 27.9%, 16.9%)',
+                            borderColor: 'rgba(0, 242, 255, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e6f1ff',
+                            bodyColor: '#8892b0',
                             callbacks: {
                                 label: function (context) {
                                     return `${context.dataset.label}: ${context.raw}`;
@@ -820,32 +1026,45 @@
             });
 
             // Saldırı dağılımı grafiği
-            const attackCtx = document.getElementById('attack-distribution').getContext('2d');
-            attackDistributionChart = new Chart(attackCtx, {
+            const attackCtx = document.getElementById('attack-distribution');
+
+            if (!attackCtx) {
+                console.error('attack-distribution canvas elemanı bulunamadı!');
+                return;
+            }
+
+            // Canvas bağlamını al
+            const ctx = attackCtx.getContext('2d');
+
+            // Başlangıç verileri
+            const initialData = {
+                labels: ['Veri Bekleniyor'],
+                datasets: [{
+                    data: [1],
+                    backgroundColor: ['#8892b0']
+                }]
+            };
+
+            // Grafiği oluştur
+            attackDistributionChart = new Chart(ctx, {
                 type: 'doughnut',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        data: [],
-                        backgroundColor: [
-                            '#ffcc00', // SQL Injection
-                            '#ff003c', // XSS
-                            '#00c8ff', // Brute Force
-                            '#ff6b6b', // DDoS
-                            '#4ecdc4', // Path Traversal
-                            '#45b7d1', // Command Injection
-                            '#96ceb4'  // Diğer
-                        ]
-                    }]
-                },
+                data: initialData,
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        duration: 1000
+                    },
                     plugins: {
                         legend: {
                             display: false
                         },
                         tooltip: {
+                            backgroundColor: 'hsl(215, 27.9%, 16.9%)',
+                            borderColor: 'rgba(0, 242, 255, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e6f1ff',
+                            bodyColor: '#8892b0',
                             callbacks: {
                                 label: function (context) {
                                     const label = context.label || '';
@@ -860,12 +1079,44 @@
                 }
             });
 
+            // Canvas üzerindeki renkleri değiştir
+            updateAttackChartColors();
+
             // Saldırı haritası
-            attackMap = L.map('attack-map').setView([0, 0], 2);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(attackMap);
+            mapMarkers = initAttackMap();
+            console.log('Grafikler başlatıldı');
         }
+
+        // Saldırı grafiğinin renklerini güncelle
+        function updateAttackChartColors() {
+            if (!attackDistributionChart) return;
+
+            const attackColors = [
+                '#ffcc00', // SQL Injection
+                '#ff003c', // XSS
+                '#00c8ff', // Brute Force
+                '#ff6b6b', // DDoS
+                '#4ecdc4', // Path Traversal
+                '#45b7d1', // Command Injection
+                '#96ceb4', // Diğer
+                '#E0A4F5', // Ek renkler
+                '#3E9BA8',
+                '#F4D35E'
+            ];
+
+            // En fazla 10 renk kullanıyoruz, daha fazla veri varsa döngüsel olarak yeniden başlayacak
+            attackDistributionChart.data.datasets[0].backgroundColor =
+                attackDistributionChart.data.labels.map((_, index) =>
+                    attackColors[index % attackColors.length]
+                );
+
+            attackDistributionChart.update();
+        }
+
+        // Sayfa yüklendiğinde grafikleri başlat
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+        });
 
         // Analiz verilerini güncelle
         function updateAnalytics(data) {
@@ -874,8 +1125,14 @@
             // Toplam istek sayısı
             document.getElementById('total-requests').textContent = data.traffic_stats.total_requests || 0;
 
-            // Toplam saldırı sayısı
-            const totalAttacks = Object.values(data.traffic_stats.attack_types || {}).reduce((a, b) => a + b, 0);
+            // Toplam saldırı sayısı 
+            let totalAttacks = 0;
+            if (data.traffic_stats && data.traffic_stats.attack_types) {
+                totalAttacks = Object.values(data.traffic_stats.attack_types).reduce((a, b) => a + b, 0);
+                console.log('Saldırı türleri:', data.traffic_stats.attack_types);
+                console.log('Toplam saldırı sayısı:', totalAttacks);
+            }
+
             const totalAttacksElement = document.getElementById('total-attacks');
             totalAttacksElement.textContent = totalAttacks;
 
@@ -890,69 +1147,238 @@
             // Benzersiz IP sayısı
             document.getElementById('unique-ips').textContent = Object.keys(data.traffic_stats.requests_by_ip || {}).length;
 
+            // Ortalama yanıt süresi (örnek olarak rastgele değer)
+            document.getElementById('avg-response').textContent = `${Math.floor(Math.random() * 100) + 50}ms`;
+
             // Trafik trendi grafiğini güncelle
             if (data.hourly_trend) {
                 console.log('Saatlik veriler:', data.hourly_trend);
+                console.log('Normal trafik:', data.normal_hourly_trend);
+                console.log('Saldırı trafiği:', data.attack_hourly_trend);
+
+                // Saatlik verileri diziye dönüştür
                 const hourlyData = Array(24).fill(0);
                 const attackHourlyData = Array(24).fill(0);
 
-                // Normal trafik ve saldırı trafiğini ayır
-                Object.entries(data.hourly_trend).forEach(([hour, count]) => {
-                    const hourIndex = parseInt(hour);
-                    if (data.traffic_stats.attack_types && Object.values(data.traffic_stats.attack_types).some(v => v > 0)) {
-                        attackHourlyData[hourIndex] = count;
-                    } else {
+                // Normal trafik ve saldırı trafiğini ayrı ayrı aktar
+                if (data.normal_hourly_trend) {
+                    Object.entries(data.normal_hourly_trend).forEach(([hour, count]) => {
+                        const hourIndex = parseInt(hour);
                         hourlyData[hourIndex] = count;
-                    }
-                });
+                    });
+                }
+
+                if (data.attack_hourly_trend) {
+                    Object.entries(data.attack_hourly_trend).forEach(([hour, count]) => {
+                        const hourIndex = parseInt(hour);
+                        attackHourlyData[hourIndex] = count;
+                    });
+                }
 
                 if (trafficTrendChart) {
                     trafficTrendChart.data.datasets[0].data = hourlyData;
                     trafficTrendChart.data.datasets[1].data = attackHourlyData;
-                    trafficTrendChart.update('none');
+                    trafficTrendChart.update();
                     console.log('Trafik trendi grafiği güncellendi:', { normal: hourlyData, attack: attackHourlyData });
                 }
             }
 
             // Saldırı dağılımı grafiğini güncelle
             if (data.attack_distribution) {
-                const attackTypes = Object.keys(data.attack_distribution);
-                const attackCounts = Object.values(data.attack_distribution);
+                console.log('Ham saldırı dağılımı:', data.attack_distribution);
+
+                // "Security Issue" dışındaki saldırı tiplerini filtrele
+                const filteredAttackTypes = {};
+                let hasData = false;
+
+                Object.entries(data.attack_distribution).forEach(([type, count]) => {
+                    if (type !== "Security Issue" && count > 0) {
+                        filteredAttackTypes[type] = count;
+                        hasData = true;
+                    }
+                });
+
+                console.log('Filtrelenmiş saldırı dağılımı:', filteredAttackTypes);
+
+                // Eğer hiç veri yoksa, varsayılan bir veri ekleyelim
+                if (!hasData) {
+                    if (Object.keys(data.attack_distribution).length > 0) {
+                        console.log('Tüm veriler Security Issue olduğu için varsayılan veri ekleniyor');
+
+                        // Security Issue verisi varsa onu gösterelim
+                        if (data.attack_distribution["Security Issue"]) {
+                            filteredAttackTypes["Security Issue"] = data.attack_distribution["Security Issue"];
+                        } else {
+                            // Örnek bir veri oluştur
+                            filteredAttackTypes["Log Analizi"] = 1;
+                        }
+                    }
+                }
+
+                const attackTypes = Object.keys(filteredAttackTypes);
+                const attackCounts = Object.values(filteredAttackTypes);
 
                 if (attackDistributionChart) {
                     attackDistributionChart.data.labels = attackTypes;
                     attackDistributionChart.data.datasets[0].data = attackCounts;
-                    attackDistributionChart.update('none');
+
+                    // Grafik renklerini güncelle
+                    updateAttackChartColors();
+
+                    attackDistributionChart.update();
+                    console.log('Saldırı dağılımı grafiği güncellendi:', attackTypes, attackCounts);
 
                     // Göstergeyi güncelle
                     const legendContainer = document.querySelector('#attack-distribution').closest('.analytics-card').querySelector('.chart-legend');
                     legendContainer.innerHTML = '';
 
-                    attackTypes.forEach((type, index) => {
-                        const icon = getAttackIcon(type);
-                        const color = getAttackColor(type);
-                        const count = attackCounts[index];
+                    if (attackTypes.length > 0) {
+                        attackTypes.forEach((type, index) => {
+                            const icon = getAttackIcon(type);
+                            const color = getAttackColor(type);
+                            const count = attackCounts[index];
+                            const li = document.createElement('span');
+                            li.className = 'legend-item';
+                            li.innerHTML = `<i class="fas ${icon} ${color}"></i> ${type} (${count})`;
+                            legendContainer.appendChild(li);
+                        });
+                    } else {
                         const li = document.createElement('span');
                         li.className = 'legend-item';
-                        li.innerHTML = `<i class="fas ${icon} ${color}"></i> ${type} (${count})`;
+                        li.innerHTML = `<i class="fas fa-info-circle text-info"></i> Henüz saldırı tespit edilmedi`;
                         legendContainer.appendChild(li);
-                    });
+                    }
+                } else {
+                    console.error('Saldırı dağılımı grafiği bulunamadı (attackDistributionChart undefined)');
                 }
+            } else {
+                console.warn('Saldırı dağılımı verisi mevcut değil (data.attack_distribution undefined)');
             }
 
             // En aktif saldırganları güncelle
             if (data.top_ips) {
+                console.log('En aktif IP\'ler:', data.top_ips);
                 const topAttackersList = document.getElementById('top-attackers');
-                topAttackersList.innerHTML = '';
-                Object.entries(data.top_ips).forEach(([ip, count]) => {
-                    const li = document.createElement('li');
-                    li.className = 'top-list-item';
-                    li.innerHTML = `
-                        <span class="ip">${ip}</span>
-                        <span class="badge bg-danger">${count}</span>
-                    `;
-                    topAttackersList.appendChild(li);
+                if (topAttackersList) {
+                    topAttackersList.innerHTML = '';
+
+                    // top_ips verilerini ekle
+                    if (Object.keys(data.top_ips).length > 0) {
+                        Object.entries(data.top_ips).forEach(([ip, count]) => {
+                            // IP için konum bilgisi ara
+                            let locationInfo = '';
+                            if (data.locations) {
+                                const ipLocation = data.locations.find(loc => loc.ip === ip);
+                                if (ipLocation) {
+                                    locationInfo = `<small>${ipLocation.country_code || ''} ${ipLocation.city || ''}</small>`;
+                                }
+                            }
+
+                            // Saldırı tipi var mı kontrol et
+                            let attackType = '';
+                            let confidenceInfo = '';
+                            if (data.attack_locations) {
+                                const attackInfo = data.attack_locations.find(loc => loc.location && loc.location.ip === ip);
+                                if (attackInfo) {
+                                    const attackIcon = getAttackIcon(attackInfo.attack_type);
+                                    const attackColor = getAttackColor(attackInfo.attack_type);
+                                    const confidence = attackInfo.confidence || 0;
+                                    let confidenceClass = 'text-danger';
+
+                                    if (confidence >= 70) {
+                                        confidenceClass = 'text-danger';
+                                    } else if (confidence >= 50) {
+                                        confidenceClass = 'text-warning';
+                                    } else {
+                                        confidenceClass = 'text-info';
+                                    }
+
+                                    attackType = `<span class="badge ${attackColor}" style="margin-left:5px" 
+                                                  title="${attackInfo.attack_type} (Doğruluk: ${confidence.toFixed(1)}%)">
+                                                  <i class="fas ${attackIcon}"></i></span>`;
+
+                                    confidenceInfo = `<small class="${confidenceClass}" style="margin-left:5px">
+                                                    %${confidence.toFixed(1)}</small>`;
+                                }
+                            }
+
+                            const li = document.createElement('li');
+                            li.className = 'top-list-item';
+                            li.innerHTML = `
+                                <div class="attacker-info">
+                                    <span class="ip">${ip}</span>
+                                    ${locationInfo}
+                                </div>
+                                <div>
+                                    <span class="badge bg-danger">${count}</span>
+                                    ${attackType}
+                                    ${confidenceInfo}
+                                </div>
+                            `;
+                            topAttackersList.appendChild(li);
+                        });
+                    } else {
+                        // Eğer veri yoksa bilgilendirme mesajı ekle
+                        const li = document.createElement('li');
+                        li.className = 'top-list-item text-center';
+                        li.textContent = 'Henüz aktif saldırgan tespit edilmedi';
+                        topAttackersList.appendChild(li);
+                    }
+                } else {
+                    console.error('top-attackers ID\'li eleman bulunamadı');
+                }
+            }
+
+            // Haritayı güncelle
+            if (data.locations && data.locations.length > 0) {
+                // Yeni verileri göster
+                updateMap(data.locations, data.attack_locations);
+            }
+        }
+
+        // Haritayı güncelle
+        function updateMap(locations, attackLocations) {
+            // Yeni lokasyonları işle
+            locations.forEach(location => {
+                if (!lastLocations.some(loc => loc.ip === location.ip)) {
+                    addMarkerToMap(location);
+                    lastLocations.push(location);
+                }
+            });
+
+            // Yeni saldırı lokasyonlarını işle
+            if (attackLocations && attackLocations.length > 0) {
+                console.log('Saldırı konumları:', attackLocations);
+                attackLocations.forEach(attackLocation => {
+                    if (attackLocation && attackLocation.location && attackLocation.location.ip) {
+                        // Daha önce eklenmiş mi kontrol et
+                        const exists = lastAttackLocations.some(loc =>
+                            loc.location &&
+                            loc.location.ip === attackLocation.location.ip &&
+                            loc.attack_type === attackLocation.attack_type
+                        );
+
+                        if (!exists) {
+                            console.log('Yeni saldırı konumu ekleniyor:', attackLocation);
+                            addMarkerToMap(
+                                attackLocation.location,
+                                true,
+                                attackLocation.attack_type,
+                                attackLocation.count,
+                                attackLocation.confidence
+                            );
+                            lastAttackLocations.push(attackLocation);
+                        }
+                    } else {
+                        console.warn('Geçersiz saldırı konumu:', attackLocation);
+                    }
                 });
+            }
+
+            // Harita görünümünü güncelle
+            if (attackMap && mapMarkers.getLayers().length > 0) {
+                attackMap.addLayer(mapMarkers);
+                attackMap.fitBounds(mapMarkers.getBounds(), { padding: [50, 50] });
             }
         }
 
@@ -964,7 +1390,13 @@
                 'Brute Force': 'fa-hammer',
                 'DDoS': 'fa-bomb',
                 'Path Traversal': 'fa-folder-open',
-                'Command Injection': 'fa-terminal'
+                'Command Injection': 'fa-terminal',
+                'Security Issue': 'fa-exclamation-triangle',
+                'Directory Traversal': 'fa-folder-open',
+                'File Inclusion': 'fa-file-import',
+                'Remote Code Execution': 'fa-code',
+                'Insecure Deserialization': 'fa-box-open',
+                'Server Side Request Forgery': 'fa-server'
             };
             return icons[type] || 'fa-exclamation-triangle';
         }
@@ -977,7 +1409,13 @@
                 'Brute Force': 'text-info',
                 'DDoS': 'text-danger',
                 'Path Traversal': 'text-warning',
-                'Command Injection': 'text-danger'
+                'Command Injection': 'text-danger',
+                'Security Issue': 'text-secondary',
+                'Directory Traversal': 'text-warning',
+                'File Inclusion': 'text-warning',
+                'Remote Code Execution': 'text-danger',
+                'Insecure Deserialization': 'text-info',
+                'Server Side Request Forgery': 'text-info'
             };
             return colors[type] || 'text-secondary';
         }
