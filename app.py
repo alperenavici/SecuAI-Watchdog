@@ -20,6 +20,7 @@ from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout
 import tensorflow as tf
 from dotenv import load_dotenv
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # .env dosyasını yükle
 load_dotenv()
@@ -34,9 +35,16 @@ LSTM_MODEL_PATH = os.path.join(MODEL_DIR, "lstm_model.h5")
 RF_MODEL_PATH = os.path.join(MODEL_DIR, "rf_model.pkl")
 SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
 FEATURES_PATH = os.path.join(MODEL_DIR, "features.json")
+METRICS_PATH = os.path.join(MODEL_DIR, "performance_metrics.json")
+
+# Model versiyonlama yolları
+MODELS_HISTORY_DIR = os.path.join(MODEL_DIR, "history")
+PERFORMANCE_HISTORY_PATH = os.path.join(MODEL_DIR, "performance_history.json")
+BEST_MODELS_PATH = os.path.join(MODEL_DIR, "best_models.json")
 
 # Modeller için dizin oluşturma
 os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(MODELS_HISTORY_DIR, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -210,6 +218,100 @@ class WebSecurityMonitor:
         except Exception as e:
             logger.error(f"Scaler oluşturma hatası: {e}")
             self.scaler = None
+    
+    def _load_performance_history(self):
+        """Performans geçmişini yükler"""
+        try:
+            if os.path.exists(PERFORMANCE_HISTORY_PATH):
+                with open(PERFORMANCE_HISTORY_PATH, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            else:
+                return []
+        except Exception as e:
+            logger.error(f"Performans geçmişi yüklenemedi: {e}")
+            return []
+    
+    def _save_performance_history(self, history):
+        """Performans geçmişini kaydeder"""
+        try:
+            with open(PERFORMANCE_HISTORY_PATH, 'w', encoding='utf-8') as f:
+                json.dump(history, f, indent=2, ensure_ascii=False)
+            logger.info(f"Performans geçmişi kaydedildi: {PERFORMANCE_HISTORY_PATH}")
+        except Exception as e:
+            logger.error(f"Performans geçmişi kaydedilemedi: {e}")
+    
+    def _load_best_models_info(self):
+        """En iyi modellerin bilgilerini yükler"""
+        try:
+            if os.path.exists(BEST_MODELS_PATH):
+                with open(BEST_MODELS_PATH, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            else:
+                return {"lstm": None, "randomforest": None}
+        except Exception as e:
+            logger.error(f"En iyi modeller bilgisi yüklenemedi: {e}")
+            return {"lstm": None, "randomforest": None}
+    
+    def _save_best_models_info(self, best_models):
+        """En iyi modellerin bilgilerini kaydeder"""
+        try:
+            with open(BEST_MODELS_PATH, 'w', encoding='utf-8') as f:
+                json.dump(best_models, f, indent=2, ensure_ascii=False)
+            logger.info(f"En iyi modeller bilgisi kaydedildi: {BEST_MODELS_PATH}")
+        except Exception as e:
+            logger.error(f"En iyi modeller bilgisi kaydedilemedi: {e}")
+    
+    def _backup_current_models(self, timestamp):
+        """Mevcut modelleri history klasörüne yedekler"""
+        try:
+            # LSTM model yedeği
+            if os.path.exists(LSTM_MODEL_PATH):
+                backup_path = os.path.join(MODELS_HISTORY_DIR, f"lstm_model_{timestamp}.h5")
+                import shutil
+                shutil.copy2(LSTM_MODEL_PATH, backup_path)
+                logger.info(f"LSTM modeli yedeklendi: {backup_path}")
+            
+            # RandomForest model yedeği
+            if os.path.exists(RF_MODEL_PATH):
+                backup_path = os.path.join(MODELS_HISTORY_DIR, f"rf_model_{timestamp}.pkl")
+                import shutil
+                shutil.copy2(RF_MODEL_PATH, backup_path)
+                logger.info(f"RandomForest modeli yedeklendi: {backup_path}")
+            
+            # Scaler yedeği
+            if os.path.exists(SCALER_PATH):
+                backup_path = os.path.join(MODELS_HISTORY_DIR, f"scaler_{timestamp}.pkl")
+                import shutil
+                shutil.copy2(SCALER_PATH, backup_path)
+                logger.info(f"Scaler yedeklendi: {backup_path}")
+                
+        except Exception as e:
+            logger.error(f"Model yedeği oluşturulamadı: {e}")
+    
+    def _is_model_better(self, current_metrics, best_metrics):
+        """Yeni modelin daha iyi olup olmadığını kontrol eder"""
+        if not best_metrics:
+            return True
+        
+        # LSTM için karşılaştırma
+        if 'final_accuracy' in current_metrics.get('lstm_metrics', {}):
+            current_lstm_acc = current_metrics['lstm_metrics']['final_accuracy']
+            best_lstm_acc = best_metrics.get('lstm_metrics', {}).get('final_accuracy', 0)
+            
+            # RandomForest için karşılaştırma
+            current_rf_acc = current_metrics.get('randomforest_metrics', {}).get('accuracy', 0)
+            best_rf_acc = best_metrics.get('randomforest_metrics', {}).get('accuracy', 0)
+            
+            # Ağırlıklı skor hesaplama (LSTM %70, RF %30)
+            current_score = (current_lstm_acc * 0.7) + (current_rf_acc * 0.3)
+            best_score = (best_lstm_acc * 0.7) + (best_rf_acc * 0.3)
+            
+            improvement = current_score - best_score
+            logger.info(f"Model performans karşılaştırması: Mevcut={current_score:.4f}, En İyi={best_score:.4f}, İyileşme={improvement:.4f}")
+            
+            return improvement > 0.01  # En az %1 iyileşme gerekli
+        
+        return False
     
     def parse_log_line(self, line):
         try:
@@ -508,8 +610,8 @@ class WebSecurityMonitor:
                         })
                         self.update_risk_score(ip, 'Anormal Davranış')
             
-            # Modelleri eğit/güncelle - 50 log kaydı yeterli ve henüz eğitilmemişse
-            if len(parsed_entries) >= 50 and not self.model_trained:
+            # Modelleri eğit/güncelle - 20 log kaydı yeterli ve henüz eğitilmemişse
+            if len(parsed_entries) >= 20 and not self.model_trained:
                 logger.info(f"{len(parsed_entries)} log kaydı toplandı, model eğitimi başlatılıyor...")
                 self._train_models(parsed_entries)
             
@@ -522,8 +624,8 @@ class WebSecurityMonitor:
     def _train_models(self, entries):
         """Modelleri eğitir/günceller"""
         try:
-            if len(entries) < 50:  # Minimum veri gereksinimi
-                logger.info(f"Model eğitimi için yetersiz veri: {len(entries)} giriş. En az 50 giriş gerekli.")
+            if len(entries) < 20:  # Minimum veri gereksinimi
+                logger.info(f"Model eğitimi için yetersiz veri: {len(entries)} giriş. En az 20 giriş gerekli.")
                 return
                 
             logger.info(f"Modeller {len(entries)} girdi ile eğitiliyor...")
@@ -545,59 +647,106 @@ class WebSecurityMonitor:
                         if sequence.size > 0:
                             X_sequences.append(sequence[0])
             
+            # Performans metriklerini topla
+            performance_metrics = {
+                "training_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "total_entries": len(entries),
+                "lstm_metrics": {},
+                "randomforest_metrics": {}
+            }
+            
             # Yeterli veri varsa LSTM modelini eğit
             if len(X_sequences) >= 10:
-                X_lstm = np.array(X_sequences)
-                # Yapay etiketler (hepsi normal - gerçek kullanımda etiketli veri gerekir)
-                y_lstm = np.ones(len(X_sequences))
-                
-                # LSTM modeli None ise, modeli başlat
-                if self.lstm_model is None:
-                    logger.info("LSTM modeli bulunamadı, yeniden başlatılıyor...")
-                    self._init_models()
-                
-                # LSTM modeli hala None değilse eğitimi gerçekleştir
-                if self.lstm_model is not None:
-                    # Modeli eğit
-                    self.lstm_model.fit(
-                        X_lstm, y_lstm, 
-                        epochs=5, 
-                        batch_size=32,
-                        verbose=0
-                    )
+                try:
+                    X_lstm = np.array(X_sequences)
+                    # Yapay etiketler (hepsi normal - gerçek kullanımda etiketli veri gerekir)
+                    y_lstm = np.ones(len(X_sequences))
                     
-                    # LSTM Modelini kaydet
-                    try:
-                        self.lstm_model.save(LSTM_MODEL_PATH)
-                        logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi: {LSTM_MODEL_PATH}")
-                    except Exception as e:
-                        logger.error(f"LSTM model kaydedilemedi: {e}")
-                else:
-                    logger.error("LSTM modeli başlatılamadı, eğitim atlanıyor")
-                
-                # 2. RandomForest için veri hazırlama
-                # Basit özellikler oluştur
-                features = []
-                labels = []
-                
-                for ip, ip_entries_list in ip_entries.items():
-                    if len(ip_entries_list) >= 5:
-                        # IP başına özellikler
-                        avg_response_size = np.mean([e['response_size'] for e in ip_entries_list])
-                        error_rate = sum(1 for e in ip_entries_list if 400 <= e['status_code'] < 600) / len(ip_entries_list)
-                        path_diversity = len(set([e['path'] for e in ip_entries_list])) / len(ip_entries_list)
+                    # LSTM modeli None ise, modeli başlat
+                    if self.lstm_model is None:
+                        logger.info("LSTM modeli bulunamadı, yeniden başlatılıyor...")
+                        try:
+                            self.lstm_model = Sequential([
+                                LSTM(64, activation='relu', input_shape=(10, 6), return_sequences=True),
+                                Dropout(0.2),
+                                LSTM(32, activation='relu'),
+                                Dropout(0.2),
+                                Dense(16, activation='relu'),
+                                Dense(1, activation='sigmoid')
+                            ])
+                            self.lstm_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+                            logger.info("LSTM modeli yeniden başlatıldı")
+                        except Exception as e:
+                            logger.error(f"LSTM model başlatma hatası: {e}")
+                            self.lstm_model = None
+                    
+                    # LSTM modeli başarıyla oluşturulduysa eğitimi gerçekleştir
+                    if self.lstm_model is not None:
+                        # Modeli eğit
+                        history = self.lstm_model.fit(
+                            X_lstm, y_lstm, 
+                            epochs=5, 
+                            batch_size=32,
+                            verbose=0
+                        )
                         
-                        feature_vec = [avg_response_size, error_rate, path_diversity]
-                        features.append(feature_vec)
+                        # LSTM metriklerini kaydet
+                        performance_metrics["lstm_metrics"] = {
+                            "sequences_used": len(X_sequences),
+                            "epochs": 5,
+                            "final_accuracy": float(history.history['accuracy'][-1]),
+                            "final_loss": float(history.history['loss'][-1]),
+                            "training_history": {
+                                "accuracy": [float(acc) for acc in history.history['accuracy']],
+                                "loss": [float(loss) for loss in history.history['loss']]
+                            }
+                        }
                         
-                        # Basit etiket oluştur (gerçek uygulamada daha iyi etiketleme gerekir)
-                        is_suspicious = any(self.is_login_failed(e) for e in ip_entries_list) or error_rate > 0.5
-                        labels.append(1 if is_suspicious else 0)
+                        # LSTM Modelini kaydet
+                        try:
+                            self.lstm_model.save(LSTM_MODEL_PATH)
+                            logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi: {LSTM_MODEL_PATH}")
+                            logger.info(f"LSTM final doğruluk: {history.history['accuracy'][-1]:.4f}")
+                        except Exception as e:
+                            logger.error(f"LSTM model kaydedilemedi: {e}")
+                    else:
+                        logger.warning("LSTM modeli başlatılamadı, LSTM eğitimi atlanıyor")
+                        performance_metrics["lstm_metrics"] = {"error": "Model başlatılamadı"}
                 
-                if len(features) >= 10:  # En az 10 örnek
+                except Exception as e:
+                    logger.error(f"LSTM eğitimi sırasında hata: {e}")
+                    logger.warning("LSTM eğitimi başarısız, RandomForest eğitimine devam ediliyor")
+                    performance_metrics["lstm_metrics"] = {"error": str(e)}
+            else:
+                logger.info(f"LSTM eğitimi için yetersiz veri: {len(X_sequences)} sekans. En az 10 sekans gerekli.")
+                performance_metrics["lstm_metrics"] = {"error": f"Yetersiz veri: {len(X_sequences)} sekans"}
+            
+            # 2. RandomForest için veri hazırlama - LSTM hatası olsa bile devam et
+            features = []
+            labels = []
+            
+            for ip, ip_entries_list in ip_entries.items():
+                if len(ip_entries_list) >= 5:
+                    # IP başına özellikler
+                    avg_response_size = np.mean([e['response_size'] for e in ip_entries_list])
+                    error_rate = sum(1 for e in ip_entries_list if 400 <= e['status_code'] < 600) / len(ip_entries_list)
+                    path_diversity = len(set([e['path'] for e in ip_entries_list])) / len(ip_entries_list)
+                    
+                    feature_vec = [avg_response_size, error_rate, path_diversity]
+                    features.append(feature_vec)
+                    
+                    # Basit etiket oluştur (gerçek uygulamada daha iyi etiketleme gerekir)
+                    is_suspicious = any(self.is_login_failed(e) for e in ip_entries_list) or error_rate > 0.5
+                    labels.append(1 if is_suspicious else 0)
+            
+            if len(features) >= 10:  # En az 10 örnek
+                try:
                     # Verileri ölçeklendir
                     X = np.array(features)
                     y = np.array(labels)
+                    
+                    # Eğitim/Test bölmesi
+                    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
                     
                     # RandomForest modeli None ise, modeli başlat
                     if self.rf_model is None:
@@ -610,12 +759,34 @@ class WebSecurityMonitor:
                         self.scaler = StandardScaler()
                     
                     # Scaler'ı eğit
-                    self.scaler.fit(X)
-                    X_scaled = self.scaler.transform(X)
+                    self.scaler.fit(X_train)
+                    X_train_scaled = self.scaler.transform(X_train)
+                    X_test_scaled = self.scaler.transform(X_test)
                     
                     # RF modelini eğit
                     if self.rf_model is not None:
-                        self.rf_model.fit(X_scaled, y)
+                        self.rf_model.fit(X_train_scaled, y_train)
+                        
+                        # Test setinde tahmin ve metrikler
+                        y_pred = self.rf_model.predict(X_test_scaled)
+                        acc = accuracy_score(y_test, y_pred)
+                        prec = precision_score(y_test, y_pred, zero_division=0)
+                        rec = recall_score(y_test, y_pred, zero_division=0)
+                        f1 = f1_score(y_test, y_pred, zero_division=0)
+                        
+                        # RandomForest metriklerini kaydet
+                        performance_metrics["randomforest_metrics"] = {
+                            "samples_used": len(features),
+                            "train_size": len(X_train),
+                            "test_size": len(X_test),
+                            "accuracy": float(acc),
+                            "precision": float(prec),
+                            "recall": float(rec),
+                            "f1_score": float(f1),
+                            "feature_names": ["avg_response_size", "error_rate", "path_diversity"]
+                        }
+                        
+                        logger.info(f"RandomForest Test Sonuçları - Doğruluk: {acc:.3f}, Precision: {prec:.3f}, Recall: {rec:.3f}, F1: {f1:.3f}")
                         
                         # RandomForest modelini kaydet
                         try:
@@ -625,6 +796,7 @@ class WebSecurityMonitor:
                             logger.error(f"RandomForest model kaydedilemedi: {e}")
                     else:
                         logger.error("RandomForest modeli başlatılamadı, eğitim atlanıyor")
+                        performance_metrics["randomforest_metrics"] = {"error": "Model başlatılamadı"}
                     
                     # Scaler'ı kaydet
                     if self.scaler is not None:
@@ -644,13 +816,94 @@ class WebSecurityMonitor:
                         logger.info(f"Özellik isimleri kaydedildi: {FEATURES_PATH}")
                     except Exception as e:
                         logger.error(f"Özellik isimleri kaydedilemedi: {e}")
-                else:
-                    logger.info(f"RandomForest eğitimi için yetersiz veri: {len(features)} örnek. En az 10 örnek gerekli.")
+                        
+                except Exception as e:
+                    logger.error(f"RandomForest eğitimi sırasında hata: {e}")
+                    import traceback
+                    logger.error(traceback.format_exc())
+                    performance_metrics["randomforest_metrics"] = {"error": str(e)}
             else:
-                logger.info(f"LSTM eğitimi için yetersiz veri: {len(X_sequences)} sekans. En az 10 sekans gerekli.")
+                logger.info(f"RandomForest eğitimi için yetersiz veri: {len(features)} örnek. En az 10 örnek gerekli.")
+                performance_metrics["randomforest_metrics"] = {"error": f"Yetersiz veri: {len(features)} örnek"}
             
             # Modeller başarıyla eğitildiyse model_trained'i güncelle
-            self.model_trained = (self.lstm_model is not None and self.rf_model is not None)
+            # En az RandomForest modeli eğitilmişse yeterli
+            self.model_trained = (self.rf_model is not None)
+            if self.model_trained:
+                logger.info("Model eğitimi başarıyla tamamlandı")
+            else:
+                logger.warning("Hiçbir model eğitilemedi")
+            
+            # Performans metriklerini kaydet
+            try:
+                with open(METRICS_PATH, 'w', encoding='utf-8') as f:
+                    json.dump(performance_metrics, f, indent=2, ensure_ascii=False)
+                logger.info(f"Performans metrikleri kaydedildi: {METRICS_PATH}")
+            except Exception as e:
+                logger.error(f"Performans metrikleri kaydedilemedi: {e}")
+            
+            # Model versiyonlama ve en iyi model seçimi
+            try:
+                # Performans geçmişini yükle
+                performance_history = self._load_performance_history()
+                
+                # Mevcut performansı geçmişe ekle
+                performance_history.append(performance_metrics)
+                
+                # En iyi modellerin bilgilerini yükle
+                best_models = self._load_best_models_info()
+                
+                # En iyi performansı bul
+                best_performance = None
+                if best_models.get("best_performance"):
+                    best_performance = best_models["best_performance"]
+                
+                # Yeni model daha iyi mi?
+                if self._is_model_better(performance_metrics, best_performance):
+                    # Timestamp oluştur
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    
+                    # Eski modelleri yedekle
+                    if best_performance:  # Önceki en iyi modeller varsa yedekle
+                        logger.info("Önceki en iyi modeller yedekleniyor...")
+                        self._backup_current_models(f"backup_{timestamp}")
+                    
+                    # Yeni en iyi model bilgilerini güncelle
+                    best_models = {
+                        "best_performance": performance_metrics,
+                        "best_model_timestamp": timestamp,
+                        "lstm": {
+                            "path": LSTM_MODEL_PATH,
+                            "accuracy": performance_metrics.get('lstm_metrics', {}).get('final_accuracy', 0)
+                        },
+                        "randomforest": {
+                            "path": RF_MODEL_PATH,
+                            "accuracy": performance_metrics.get('randomforest_metrics', {}).get('accuracy', 0)
+                        }
+                    }
+                    
+                    # En iyi model bilgilerini kaydet
+                    self._save_best_models_info(best_models)
+                    
+                    logger.info("🎉 YENİ EN İYİ MODELLER BULUNDU!")
+                    logger.info(f"LSTM Doğruluk: {performance_metrics.get('lstm_metrics', {}).get('final_accuracy', 0):.4f}")
+                    logger.info(f"RandomForest Doğruluk: {performance_metrics.get('randomforest_metrics', {}).get('accuracy', 0):.4f}")
+                else:
+                    logger.info("Yeni modeller önceki en iyi modellerden daha iyi değil, geçmişte tutulacak")
+                    # Mevcut en iyi modelleri yeniden yükle (backup'tan geri dönebiliriz)
+                    if best_models.get("best_performance"):
+                        logger.info(f"En iyi model doğruluğu: LSTM={best_models['lstm']['accuracy']:.4f}, RF={best_models['randomforest']['accuracy']:.4f}")
+                
+                # Performans geçmişini kaydet (son 10 eğitimi tut)
+                if len(performance_history) > 10:
+                    performance_history = performance_history[-10:]
+                
+                self._save_performance_history(performance_history)
+                
+            except Exception as e:
+                logger.error(f"Model versiyonlama sırasında hata: {e}")
+                import traceback
+                logger.error(traceback.format_exc())
         
         except Exception as e:
             logger.error(f"Model eğitimi sırasında hata: {e}")
@@ -698,7 +951,7 @@ class WebSecurityMonitor:
             logger.error(f"İzleme sırasında hata oluştu: {e}")
     
     def start(self):
-        schedule.every(1).minutes.do(self.monitor)
+        schedule.every(10).seconds.do(self.monitor)
         logger.info("Web güvenlik izleme başlatıldı")
         
         try:

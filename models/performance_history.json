@@ -1,0 +1,23 @@
+[
+  {
+    "training_timestamp": "2025-05-24 18:30:53",
+    "total_entries": 411,
+    "lstm_metrics": {
+      "error": "numpy() is only available when eager execution is enabled."
+    },
+    "randomforest_metrics": {
+      "samples_used": 12,
+      "train_size": 9,
+      "test_size": 3,
+      "accuracy": 0.3333333333333333,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1_score": 0.5,
+      "feature_names": [
+        "avg_response_size",
+        "error_rate",
+        "path_diversity"
+      ]
+    }
+  }
+]
