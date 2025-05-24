@@ -108,32 +108,72 @@ class WebSecurityMonitor:
     
     def _load_models(self):
         """Eğitilmiş modelleri yüklemeye çalışır"""
+        models_loaded = True
+
+        # LSTM modeli yükleme
         try:
             if os.path.exists(LSTM_MODEL_PATH):
                 self.lstm_model = load_model(LSTM_MODEL_PATH)
-                logger.info("LSTM modeli yüklendi")
-            
+                logger.info("LSTM modeli başarıyla yüklendi")
+            else:
+                logger.warning(f"LSTM model dosyası bulunamadı: {LSTM_MODEL_PATH}")
+                models_loaded = False
+        except Exception as e:
+            logger.error(f"LSTM model yükleme hatası: {e}")
+            self.lstm_model = None
+            models_loaded = False
+        
+        # RandomForest modeli yükleme
+        try:
             if os.path.exists(RF_MODEL_PATH):
                 self.rf_model = joblib.load(RF_MODEL_PATH)
-                logger.info("RandomForest modeli yüklendi")
-                
+                logger.info("RandomForest modeli başarıyla yüklendi")
+            else:
+                logger.warning(f"RandomForest model dosyası bulunamadı: {RF_MODEL_PATH}")
+                models_loaded = False
+        except Exception as e:
+            logger.error(f"RandomForest model yükleme hatası: {e}")
+            self.rf_model = None
+            models_loaded = False
+        
+        # Scaler yükleme
+        try:
             if os.path.exists(SCALER_PATH):
                 self.scaler = joblib.load(SCALER_PATH)
-                logger.info("Scaler yüklendi")
-                
+                logger.info("Scaler başarıyla yüklendi")
+            else:
+                logger.warning(f"Scaler dosyası bulunamadı: {SCALER_PATH}")
+                models_loaded = False
+        except Exception as e:
+            logger.error(f"Scaler yükleme hatası: {e}")
+            self.scaler = None
+            models_loaded = False
+        
+        # Özellik isimleri yükleme
+        try:
             if os.path.exists(FEATURES_PATH):
                 with open(FEATURES_PATH, 'r', encoding='utf-8') as f:
                     self.feature_names = json.load(f)
-                logger.info("Özellik isimleri yüklendi")
-                
-            self.model_trained = all([self.lstm_model, self.rf_model])
-            
+                logger.info("Özellik isimleri başarıyla yüklendi")
+            else:
+                logger.warning(f"Özellik isimleri dosyası bulunamadı: {FEATURES_PATH}")
+                self.feature_names = ["avg_response_size", "error_rate", "path_diversity"]
+                models_loaded = False
         except Exception as e:
-            logger.error(f"Model yükleme hatası: {e}")
+            logger.error(f"Özellik isimleri yükleme hatası: {e}")
+            self.feature_names = ["avg_response_size", "error_rate", "path_diversity"]
+            models_loaded = False
+        
+        # Eğer herhangi bir model yüklenemezse yeni modeller oluştur
+        if not models_loaded:
+            logger.info("Bazı modeller yüklenemedi, yeni modeller başlatılıyor...")
             self._init_models()
+        else:
+            self.model_trained = (self.lstm_model is not None and self.rf_model is not None)
     
     def _init_models(self):
         """Modeller yoksa yeni modeller oluşturur"""
+        # LSTM model başlatma
         try:
             # LSTM model for sequence-based anomaly detection
             self.lstm_model = Sequential([
@@ -145,13 +185,31 @@ class WebSecurityMonitor:
                 Dense(1, activation='sigmoid')
             ])
             self.lstm_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-            
+            logger.info("LSTM modeli başarıyla başlatıldı")
+        except Exception as e:
+            logger.error(f"LSTM model oluşturma hatası: {e}")
+            self.lstm_model = None
+            import traceback
+            logger.error(traceback.format_exc())
+        
+        # RandomForest model başlatma
+        try:
             # RF model for threat classification
             self.rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
-            
-            logger.info("Yeni modeller başlatıldı")
+            logger.info("RandomForest modeli başarıyla başlatıldı")
         except Exception as e:
-            logger.error(f"Model oluşturma hatası: {e}")
+            logger.error(f"RandomForest model oluşturma hatası: {e}")
+            self.rf_model = None
+        
+        # Scaler başlatma
+        try:
+            # Scaler (önceden başlatılmadıysa)
+            if self.scaler is None:
+                self.scaler = StandardScaler()
+                logger.info("StandardScaler başarıyla başlatıldı")
+        except Exception as e:
+            logger.error(f"Scaler oluşturma hatası: {e}")
+            self.scaler = None
     
     def parse_log_line(self, line):
         try:
@@ -493,20 +551,29 @@ class WebSecurityMonitor:
                 # Yapay etiketler (hepsi normal - gerçek kullanımda etiketli veri gerekir)
                 y_lstm = np.ones(len(X_sequences))
                 
-                # Modeli eğit
-                self.lstm_model.fit(
-                    X_lstm, y_lstm, 
-                    epochs=5, 
-                    batch_size=32,
-                    verbose=0
-                )
+                # LSTM modeli None ise, modeli başlat
+                if self.lstm_model is None:
+                    logger.info("LSTM modeli bulunamadı, yeniden başlatılıyor...")
+                    self._init_models()
                 
-                # LSTM Modelini kaydet
-                try:
-                    self.lstm_model.save(LSTM_MODEL_PATH)
-                    logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi: {LSTM_MODEL_PATH}")
-                except Exception as e:
-                    logger.error(f"LSTM model kaydedilemedi: {e}")
+                # LSTM modeli hala None değilse eğitimi gerçekleştir
+                if self.lstm_model is not None:
+                    # Modeli eğit
+                    self.lstm_model.fit(
+                        X_lstm, y_lstm, 
+                        epochs=5, 
+                        batch_size=32,
+                        verbose=0
+                    )
+                    
+                    # LSTM Modelini kaydet
+                    try:
+                        self.lstm_model.save(LSTM_MODEL_PATH)
+                        logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi: {LSTM_MODEL_PATH}")
+                    except Exception as e:
+                        logger.error(f"LSTM model kaydedilemedi: {e}")
+                else:
+                    logger.error("LSTM modeli başlatılamadı, eğitim atlanıyor")
                 
                 # 2. RandomForest için veri hazırlama
                 # Basit özellikler oluştur
@@ -532,26 +599,42 @@ class WebSecurityMonitor:
                     X = np.array(features)
                     y = np.array(labels)
                     
+                    # RandomForest modeli None ise, modeli başlat
+                    if self.rf_model is None:
+                        logger.info("RandomForest modeli bulunamadı, yeniden başlatılıyor...")
+                        self.rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+                    
+                    # Scaler None ise, yeni bir scaler oluştur
+                    if self.scaler is None:
+                        logger.info("Scaler bulunamadı, yeniden başlatılıyor...")
+                        self.scaler = StandardScaler()
+                    
                     # Scaler'ı eğit
                     self.scaler.fit(X)
                     X_scaled = self.scaler.transform(X)
                     
                     # RF modelini eğit
-                    self.rf_model.fit(X_scaled, y)
-                    
-                    # RandomForest modelini kaydet
-                    try:
-                        joblib.dump(self.rf_model, RF_MODEL_PATH)
-                        logger.info(f"RandomForest modeli {len(features)} örnek ile eğitildi ve kaydedildi: {RF_MODEL_PATH}")
-                    except Exception as e:
-                        logger.error(f"RandomForest model kaydedilemedi: {e}")
+                    if self.rf_model is not None:
+                        self.rf_model.fit(X_scaled, y)
+                        
+                        # RandomForest modelini kaydet
+                        try:
+                            joblib.dump(self.rf_model, RF_MODEL_PATH)
+                            logger.info(f"RandomForest modeli {len(features)} örnek ile eğitildi ve kaydedildi: {RF_MODEL_PATH}")
+                        except Exception as e:
+                            logger.error(f"RandomForest model kaydedilemedi: {e}")
+                    else:
+                        logger.error("RandomForest modeli başlatılamadı, eğitim atlanıyor")
                     
                     # Scaler'ı kaydet
-                    try:
-                        joblib.dump(self.scaler, SCALER_PATH)
-                        logger.info(f"Scaler kaydedildi: {SCALER_PATH}")
-                    except Exception as e:
-                        logger.error(f"Scaler kaydedilemedi: {e}")
+                    if self.scaler is not None:
+                        try:
+                            joblib.dump(self.scaler, SCALER_PATH)
+                            logger.info(f"Scaler kaydedildi: {SCALER_PATH}")
+                        except Exception as e:
+                            logger.error(f"Scaler kaydedilemedi: {e}")
+                    else:
+                        logger.error("Scaler başlatılamadı, kaydetme atlanıyor")
                     
                     # Özellik isimlerini kaydet
                     feature_names = ["avg_response_size", "error_rate", "path_diversity"]
@@ -566,8 +649,8 @@ class WebSecurityMonitor:
             else:
                 logger.info(f"LSTM eğitimi için yetersiz veri: {len(X_sequences)} sekans. En az 10 sekans gerekli.")
             
-            # Model eğitildi olarak işaretle
-            self.model_trained = True
+            # Modeller başarıyla eğitildiyse model_trained'i güncelle
+            self.model_trained = (self.lstm_model is not None and self.rf_model is not None)
         
         except Exception as e:
             logger.error(f"Model eğitimi sırasında hata: {e}")

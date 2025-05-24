@@ -123,3 +123,66 @@
 2025-05-24 12:36:32,730 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 253.252.97.168 (Birden fazla user-agent kullanımı: 2 farklı imza)
 2025-05-24 12:36:32,977 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 137.23.48.250 (Birden fazla user-agent kullanımı: 2 farklı imza)
 2025-05-24 12:36:43,573 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-24 12:50:53,073 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-24 12:50:53,074 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-24 12:51:53,329 - security_monitor - INFO - 300 log kaydı toplandı, model eğitimi başlatılıyor...
+2025-05-24 12:51:53,329 - security_monitor - INFO - Modeller 300 girdi ile eğitiliyor...
+2025-05-24 12:51:53,331 - security_monitor - ERROR - Model eğitimi sırasında hata: 'NoneType' object has no attribute 'fit'
+2025-05-24 12:51:53,331 - security_monitor - ERROR - Traceback (most recent call last):
+  File "/Users/alperenavci/mühendislik tasarım/SecuAI-Watchdog/app.py", line 497, in _train_models
+    self.lstm_model.fit(
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'fit'
+
+2025-05-24 12:51:53,609 - security_monitor - WARNING - Bot Aktivitesi tespiti: 29.44.31.21 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-24 12:51:53,855 - security_monitor - WARNING - Bot Aktivitesi tespiti: 208.171.69.12 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-24 12:51:54,113 - security_monitor - WARNING - Bot Aktivitesi tespiti: 224.171.150.228 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-24 12:51:54,380 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 11.30.253.78 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:54,663 - security_monitor - WARNING - Bot Aktivitesi tespiti: 253.252.97.168 (Bot aktivitesi tespit edildi: Python-urllib/3.9)
+2025-05-24 12:51:54,925 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 128.171.251.39 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:55,201 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 75.159.174.81 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:55,466 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 69.28.191.151 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:55,729 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 8.63.122.101 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:56,017 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 14.102.249.27 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:56,319 - security_monitor - WARNING - Bot Aktivitesi tespiti: 18.128.237.138 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-24 12:51:56,607 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 29.237.83.223 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:56,910 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 137.23.48.250 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:57,222 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 217.210.97.60 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:57,604 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 84.11.144.43 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:57,856 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 34.177.34.228 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:58,137 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 186.87.53.184 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:58,419 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 8.55.127.40 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:58,671 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 184.10.224.121 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:58,953 - security_monitor - WARNING - Bot Aktivitesi tespiti: 52.228.83.193 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html))
+2025-05-24 12:51:59,218 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 202.17.112.233 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:59,462 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 205.88.38.108 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:51:59,718 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 237.158.254.230 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:00,001 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 128.3.39.130 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:00,263 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 209.168.140.135 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:00,519 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 233.43.82.145 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:00,769 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 166.160.43.147 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:01,022 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 50.171.187.190 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:01,312 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 28.64.179.7 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:01,598 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 211.83.31.13 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:52:01,851 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 28.125.27.201 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:53:02,417 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 244.139.41.101 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 12:54:02,695 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 12:55:02,963 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 12:56:03,229 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 12:57:03,502 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 12:58:03,769 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 12:59:04,037 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:00:04,309 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:01:04,572 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:02:04,860 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:03:05,142 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:04:05,466 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:05:05,963 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:06:06,466 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:07:06,851 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:08:07,118 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:09:07,374 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:10:07,642 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:11:07,881 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-24 13:12:08,424 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 40.122.33.78 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-24 13:12:55,133 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu

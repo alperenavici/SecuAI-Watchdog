@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecuAI-Watchdog Saldırı Simülatörü</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff003c;
+            --secondary-color: #ff6b6b;
+            --bg-dark: hsl(216.9, 19.1%, 26.7%);
+            --bg-darker: hsl(215, 27.9%, 16.9%);
+            --bg-light: hsl(217, 19.1%, 31%);
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --danger-color: #ff003c;
+            --warning-color: #ffcc00;
+            --success-color: #00ff8c;
+            --info-color: #00c8ff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Roboto Mono', monospace;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%23344057" stroke-width="0.5"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(255, 0, 60, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            color: var(--primary-color) !important;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            border-radius: 8px;
+            background-color: var(--bg-light);
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            box-shadow: 0 4px 20px rgba(255, 0, 60, 0.15);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            font-weight: bold;
+            background-color: var(--bg-darker);
+            border-bottom: 1px solid rgba(255, 0, 60, 0.2);
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-darker);
+        }
+
+        .btn-outline-secondary {
+            color: var(--text-secondary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--text-secondary);
+            color: var(--bg-darker);
+        }
+
+        .form-control,
+        .form-select {
+            background-color: var(--bg-darker);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: var(--bg-darker);
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 60, 0.25);
+        }
+
+        .form-select option {
+            background-color: var(--bg-darker);
+            color: var(--text-primary);
+        }
+
+        .log-container {
+            height: 300px;
+            overflow-y: auto;
+            background-color: var(--bg-darker);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .log-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .log-container::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        .log-container::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .log-line {
+            margin: 0;
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(6, 27, 46, 0.8);
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .log-line:hover {
+            background-color: rgba(255, 0, 60, 0.05);
+        }
+
+        .form-label {
+            color: var(--text-secondary);
+        }
+
+        .attack-icon {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.15em;
+            margin-right: 5px;
+        }
+
+        .badge-attack {
+            background-color: var(--primary-color);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+        }
+
+        .ip-item {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ip-item:hover {
+            background-color: rgba(255, 0, 60, 0.1);
+        }
+
+        .ip-item .badge {
+            font-size: 0.7rem;
+        }
+
+        .ip-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .ip-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .ip-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .ip-list::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        .ip-list::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .alert {
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            background-color: rgba(255, 0, 60, 0.1);
+            border-color: rgba(255, 0, 60, 0.3);
+            color: var(--primary-color);
+        }
+
+        .alert-success {
+            background-color: rgba(0, 255, 140, 0.1);
+            border-color: rgba(0, 255, 140, 0.3);
+            color: var(--success-color);
+        }
+
+        .attack-count {
+            display: flex;
+            align-items: center;
+        }
+
+        .attack-count input {
+            width: 60px;
+            margin: 0 10px;
+        }
+
+        .attack-count button {
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .attack-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .attack-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .attack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 0, 60, 0.25);
+        }
+
+        .attack-card.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 0, 60, 0.5);
+        }
+
+        .card-attack-type {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: var(--bg-darker);
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+
+        .attack-history-item {
+            border-bottom: 1px solid rgba(255, 0, 60, 0.1);
+            padding: 8px 0;
+        }
+
+        .attack-history-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Animasyonlar */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 60, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 60, 0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 0, 60, 0.1);
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-virus"></i> SecuAI-Watchdog Saldırı Simülatörü
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired"></i> IP Adresleri
+                    </div>
+                    <div class="card-body">
+                        <div id="ip-message-container"></div>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="new-ip" placeholder="Yeni IP ekle...">
+                                <button class="btn btn-outline-primary" type="button" id="add-ip-btn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="ip-list" id="ip-list">
+                            <!-- IP listesi buraya eklenecek -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-history"></i> Saldırı Geçmişi
+                    </div>
+                    <div class="card-body">
+                        <div id="attack-history">
+                            <div class="text-center text-secondary">
+                                <i class="fas fa-info-circle"></i> Henüz saldırı yapılmadı
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-crosshairs"></i> Saldırı Paneli
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="selected-ip" class="form-label">Hedef IP</label>
+                            <select class="form-select" id="selected-ip">
+                                <option value="">IP seçin...</option>
+                                <!-- IP seçenekleri burada olacak -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Saldırı Türü</label>
+                            <div class="row row-cols-1 row-cols-md-2 g-3">
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="sql_injection">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-database attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">SQL Injection</div>
+                                                    <div class="attack-desc">Veritabanı sorgularını manipüle ederek
+                                                        yetkisiz erişim sağlar.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="xss">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-code attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">XSS</div>
+                                                    <div class="attack-desc">Kötü amaçlı script kodlarını web
+                                                        sayfalarına enjekte eder.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="path_traversal">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-folder-open attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Path Traversal</div>
+                                                    <div class="attack-desc">Dizin yapısını manipüle ederek yetkisiz
+                                                        dosyalara erişir.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="brute_force">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-key attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Brute Force</div>
+                                                    <div class="attack-desc">Şifreleri tekrar tekrar deneyerek hesaplara
+                                                        erişmeye çalışır.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="ddos">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-server attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">DDoS</div>
+                                                    <div class="attack-desc">Çok sayıda istek göndererek servisi
+                                                        kullanılamaz hale getirir.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="command_injection">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-terminal attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Command Injection</div>
+                                                    <div class="attack-desc">Sunucuda komut çalıştırarak yetkisiz erişim
+                                                        sağlar.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="bot_activity">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-robot attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Bot Aktivitesi</div>
+                                                    <div class="attack-desc">Otomatik botlar kullanarak site üzerinde
+                                                        tarama yapar.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="multiple_fingerprints">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-fingerprint attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Çoklu Parmak İzi</div>
+                                                    <div class="attack-desc">Farklı tarayıcı/cihaz imzaları kullanarak
+                                                        kimlik gizler.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="high_frequency">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-bolt attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Yüksek Frekans</div>
+                                                    <div class="attack-desc">Çok kısa sürede çok sayıda istek yaparak
+                                                        sistemleri zorlar.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card attack-card" data-attack="high_error_rate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-exclamation-circle attack-icon"></i>
+                                                <div>
+                                                    <div class="card-attack-type">Yüksek Hata Oranı</div>
+                                                    <div class="attack-desc">Çok sayıda hatalı istek yaparak zafiyetleri
+                                                        tespit etmeye çalışır.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="attack-count" class="form-label">Saldırı Sayısı</label>
+                            <div class="attack-count">
+                                <button class="btn btn-outline-primary" id="decrease-count">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="form-control" id="attack-count" value="5" min="1" max="50">
+                                <button class="btn btn-outline-primary" id="increase-count">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="attack-message-container"></div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-lg" id="start-attack-btn" disabled>
+                                <i class="fas fa-rocket"></i> Saldırıyı Başlat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal"></i> Saldırı Logları
+                    </div>
+                    <div class="card-body">
+                        <div class="log-container" id="log-container">
+                            <div class="text-center text-secondary">
+                                <i class="fas fa-info-circle"></i> Henüz log kaydı yok
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // IP listesini yükle
+            const ipList = {{ ips| tojson
+        }};
+        const localIp = "{{ local_ip }}";
+        updateIpList(ipList);
+
+        // IP seçim dropdown'ını güncelle
+        updateIpSelect(ipList);
+
+        // IP'ye tıklandığında seçili hale getir
+        document.getElementById('ip-list').addEventListener('click', function (e) {
+            const ipItem = e.target.closest('.ip-item');
+            if (ipItem) {
+                const ip = ipItem.dataset.ip;
+                document.getElementById('selected-ip').value = ip;
+                validateAttackForm();
+            }
+        });
+
+        // Saldırı türüne tıklandığında seçili hale getir
+        document.querySelectorAll('.attack-card').forEach(card => {
+            card.addEventListener('click', function () {
+                document.querySelectorAll('.attack-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                validateAttackForm();
+            });
+        });
+
+        // Saldırı sayısı arttırma/azaltma
+        document.getElementById('decrease-count').addEventListener('click', function () {
+            const countInput = document.getElementById('attack-count');
+            let count = parseInt(countInput.value);
+            if (count > 1) {
+                countInput.value = count - 1;
+            }
+        });
+
+        document.getElementById('increase-count').addEventListener('click', function () {
+            const countInput = document.getElementById('attack-count');
+            let count = parseInt(countInput.value);
+            if (count < 50) {
+                countInput.value = count + 1;
+            }
+        });
+
+        // IP seçildiğinde form doğrulaması yap
+        document.getElementById('selected-ip').addEventListener('change', validateAttackForm);
+
+        // Yeni IP ekleme
+        document.getElementById('add-ip-btn').addEventListener('click', function () {
+            addNewIp();
+        });
+
+        // Enter tuşu ile IP ekleme
+        document.getElementById('new-ip').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                addNewIp();
+            }
+        });
+
+        // Saldırı başlatma
+        document.getElementById('start-attack-btn').addEventListener('click', function () {
+            startAttack();
+        });
+
+        // Form doğrulaması
+        function validateAttackForm() {
+            const ip = document.getElementById('selected-ip').value;
+            const attackType = document.querySelector('.attack-card.active');
+
+            if (ip && attackType) {
+                document.getElementById('start-attack-btn').disabled = false;
+            } else {
+                document.getElementById('start-attack-btn').disabled = true;
+            }
+        }
+
+        // IP listesini güncelle
+        function updateIpList(ips) {
+            const ipListEl = document.getElementById('ip-list');
+            ipListEl.innerHTML = '';
+
+            ips.forEach(ip => {
+                const ipItem = document.createElement('div');
+                ipItem.className = 'ip-item';
+                ipItem.dataset.ip = ip;
+
+                // Yerel IP'yi belirt
+                let ipText = ip;
+                let ipBadge = '';
+
+                if (ip === localIp) {
+                    ipBadge = '<span class="badge bg-info">Yerel</span>';
+                }
+
+                ipItem.innerHTML = `
+                        <div>${ipText} ${ipBadge}</div>
+                        <div class="ip-actions">
+                            <button class="btn btn-sm btn-outline-danger remove-ip-btn" data-ip="${ip}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                ipListEl.appendChild(ipItem);
+            });
+
+            // IP silme düğmelerini etkinleştir
+            document.querySelectorAll('.remove-ip-btn').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    removeIp(this.dataset.ip);
+                });
+            });
+        }
+
+        // IP seçim dropdown'ını güncelle
+        function updateIpSelect(ips) {
+            const selectEl = document.getElementById('selected-ip');
+            // İlk seçeneği koru
+            selectEl.innerHTML = '<option value="">IP seçin...</option>';
+
+            ips.forEach(ip => {
+                const option = document.createElement('option');
+                option.value = ip;
+                option.textContent = ip + (ip === localIp ? ' (Yerel)' : '');
+                selectEl.appendChild(option);
+            });
+        }
+
+        // Yeni IP ekle
+        function addNewIp() {
+            const newIpEl = document.getElementById('new-ip');
+            const ip = newIpEl.value.trim();
+
+            if (!ip) {
+                showMessage('ip-message-container', 'IP adresi boş olamaz!', 'danger');
+                return;
+            }
+
+            // IP formatını kontrol et
+            const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            if (!ipRegex.test(ip)) {
+                showMessage('ip-message-container', 'Geçersiz IP formatı!', 'danger');
+                return;
+            }
+
+            fetch('/api/add-ip', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ip })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        newIpEl.value = '';
+                        updateIpList(data.ips);
+                        updateIpSelect(data.ips);
+                        showMessage('ip-message-container', data.message, 'success');
+                    } else {
+                        showMessage('ip-message-container', data.message, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('ip-message-container', 'Bir hata oluştu!', 'danger');
+                });
+        }
+
+        // IP sil
+        function removeIp(ip) {
+            fetch('/api/remove-ip', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ip })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateIpList(data.ips);
+                        updateIpSelect(data.ips);
+                        showMessage('ip-message-container', data.message, 'success');
+
+                        // Eğer silinen IP seçili ise, seçimi temizle
+                        if (document.getElementById('selected-ip').value === ip) {
+                            document.getElementById('selected-ip').value = '';
+                            validateAttackForm();
+                        }
+                    } else {
+                        showMessage('ip-message-container', data.message, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('ip-message-container', 'Bir hata oluştu!', 'danger');
+                });
+        }
+
+        // Saldırı başlat
+        function startAttack() {
+            const ip = document.getElementById('selected-ip').value;
+            const attackCard = document.querySelector('.attack-card.active');
+            const attackType = attackCard ? attackCard.dataset.attack : null;
+            const count = parseInt(document.getElementById('attack-count').value);
+
+            if (!ip || !attackType) {
+                showMessage('attack-message-container', 'IP adresi ve saldırı türü seçmelisiniz!', 'danger');
+                return;
+            }
+
+            // Düğmeyi devre dışı bırak
+            const attackBtn = document.getElementById('start-attack-btn');
+            attackBtn.disabled = true;
+            attackBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saldırı Devam Ediyor...';
+
+            // Saldırı mesajını göster
+            showMessage('attack-message-container', `${ip} adresine ${count} adet ${getAttackTypeName(attackType)} saldırısı yapılıyor...`, 'info');
+
+            // Saldırı isteği gönder
+            fetch('/api/attack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ip,
+                    attack_type: attackType,
+                    count
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Log görüntüsünü güncelle
+                        updateLogs(data.results);
+
+                        // Saldırı geçmişine ekle
+                        addToAttackHistory(ip, attackType, count);
+
+                        // Başarı mesajı göster
+                        showMessage('attack-message-container', `${count} adet ${getAttackTypeName(attackType)} saldırısı başarıyla gerçekleştirildi!`, 'success');
+                    } else {
+                        showMessage('attack-message-container', data.message, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('attack-message-container', 'Saldırı sırasında bir hata oluştu!', 'danger');
+                })
+                .finally(() => {
+                    // Düğmeyi tekrar etkinleştir
+                    attackBtn.disabled = false;
+                    attackBtn.innerHTML = '<i class="fas fa-rocket"></i> Saldırıyı Başlat';
+                });
+        }
+
+        // Log görüntüsünü güncelle
+        function updateLogs(results) {
+            const logContainer = document.getElementById('log-container');
+
+            // İlk log ise içeriği temizle
+            if (logContainer.querySelector('.text-center')) {
+                logContainer.innerHTML = '';
+            }
+
+            results.forEach(result => {
+                if (result.success) {
+                    const logLine = document.createElement('div');
+                    logLine.className = 'log-line';
+                    logLine.textContent = result.log;
+                    logContainer.appendChild(logLine);
+                }
+            });
+
+            // Otomatik aşağı kaydır
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // Saldırı geçmişine ekle
+        function addToAttackHistory(ip, attackType, count) {
+            const historyContainer = document.getElementById('attack-history');
+
+            // İlk saldırı ise içeriği temizle
+            if (historyContainer.querySelector('.text-center')) {
+                historyContainer.innerHTML = '';
+            }
+
+            const attackTime = new Date().toLocaleTimeString();
+            const historyItem = document.createElement('div');
+            historyItem.className = 'attack-history-item';
+
+            historyItem.innerHTML = `
+                    <div><strong>${getAttackTypeName(attackType)}</strong> <small class="text-secondary">${attackTime}</small></div>
+                    <div class="text-secondary">IP: ${ip} - ${count} istek</div>
+                `;
+
+            // En üste ekle
+            if (historyContainer.firstChild) {
+                historyContainer.insertBefore(historyItem, historyContainer.firstChild);
+            } else {
+                historyContainer.appendChild(historyItem);
+            }
+        }
+
+        // Saldırı türü adını döndür
+        function getAttackTypeName(attackType) {
+            const attackTypes = {
+                'sql_injection': 'SQL Injection',
+                'xss': 'XSS',
+                'path_traversal': 'Path Traversal',
+                'brute_force': 'Brute Force',
+                'ddos': 'DDoS',
+                'command_injection': 'Command Injection',
+                'bot_activity': 'Bot Aktivitesi',
+                'multiple_fingerprints': 'Çoklu Parmak İzi',
+                'high_frequency': 'Yüksek Frekans',
+                'high_error_rate': 'Yüksek Hata Oranı'
+            };
+
+            return attackTypes[attackType] || attackType;
+        }
+
+        // Mesaj göster
+        function showMessage(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+
+            // 5 saniye sonra otomatik kapat
+            setTimeout(() => {
+                const alert = container.querySelector('.alert');
+                if (alert) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }
+            }, 5000);
+        }
+        });
+    </script>
+</body>
+
+</html>
