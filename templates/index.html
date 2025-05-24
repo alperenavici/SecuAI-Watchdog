@@ -897,12 +897,12 @@
                     case 'Command Injection': iconColor = 'darkred'; break;
 
                     // App.py'deki saldırı tipleri
-                    case 'Bot Aktivitesi': iconColor = '#3498db'; break; // Mavi
-                    case 'Çoklu Parmak İzi': iconColor = '#f39c12'; break; // Turuncu
-                    case 'Yüksek Hata Oranı': iconColor = '#e74c3c'; break; // Kırmızı
-                    case 'Anormal Davranış': iconColor = '#9b59b6'; break; // Mor
-                    case 'Yüksek Frekans': iconColor = '#c0392b'; break; // Koyu kırmızı
-                    case 'LSTM Anomalisi': iconColor = '#2980b9'; break; // Koyu mavi
+                    case 'Bot Aktivitesi': iconColor = 'lightblue'; break;
+                    case 'Çoklu Parmak İzi': iconColor = 'orange'; break;
+                    case 'Yüksek Hata Oranı': iconColor = 'red'; break;
+                    case 'Anormal Davranış': iconColor = 'purple'; break;
+                    case 'Yüksek Frekans': iconColor = 'darkred'; break;
+                    case 'LSTM Anomalisi': iconColor = 'darkblue'; break;
 
                     default: iconColor = 'red';
                 }
@@ -1124,7 +1124,10 @@
                 'File Inclusion': '#bbded6',
                 'Remote Code Execution': '#f6eac2',
                 'Insecure Deserialization': '#ffa8a9',
-                'Server Side Request Forgery': '#d6cbd3'
+                'Server Side Request Forgery': '#d6cbd3',
+
+                // Veri yok durumu
+                'Henüz Saldırı Yok': '#95a5a6'
             };
 
             // Yedek renkler (eğer saldırı tipi tanımlı değilse)
@@ -1223,12 +1226,12 @@
             if (data.attack_distribution) {
                 console.log('Ham saldırı dağılımı:', data.attack_distribution);
 
-                // "Security Issue" dışındaki saldırı tiplerini filtrele
+                // Tüm saldırı tiplerini göster, sadece 0 olan tipleri filtrele
                 const filteredAttackTypes = {};
                 let hasData = false;
 
                 Object.entries(data.attack_distribution).forEach(([type, count]) => {
-                    if (type !== "Security Issue" && count > 0) {
+                    if (count > 0) {
                         filteredAttackTypes[type] = count;
                         hasData = true;
                     }
@@ -1236,19 +1239,10 @@
 
                 console.log('Filtrelenmiş saldırı dağılımı:', filteredAttackTypes);
 
-                // Eğer hiç veri yoksa, varsayılan bir veri ekleyelim
+                // Eğer hiç veri yoksa, bilgilendirme mesajı göster
                 if (!hasData) {
-                    if (Object.keys(data.attack_distribution).length > 0) {
-                        console.log('Tüm veriler Security Issue olduğu için varsayılan veri ekleniyor');
-
-                        // Security Issue verisi varsa onu gösterelim
-                        if (data.attack_distribution["Security Issue"]) {
-                            filteredAttackTypes["Security Issue"] = data.attack_distribution["Security Issue"];
-                        } else {
-                            // Örnek bir veri oluştur
-                            filteredAttackTypes["Log Analizi"] = 1;
-                        }
-                    }
+                    console.log('Henüz saldırı tespit edilmedi');
+                    filteredAttackTypes["Henüz Saldırı Yok"] = 1;
                 }
 
                 const attackTypes = Object.keys(filteredAttackTypes);
@@ -1268,7 +1262,7 @@
                     const legendContainer = document.querySelector('#attack-distribution').closest('.analytics-card').querySelector('.chart-legend');
                     legendContainer.innerHTML = '';
 
-                    if (attackTypes.length > 0) {
+                    if (attackTypes.length > 0 && !attackTypes.includes("Henüz Saldırı Yok")) {
                         attackTypes.forEach((type, index) => {
                             const icon = getAttackIcon(type);
                             const color = getAttackColor(type);
@@ -1439,7 +1433,9 @@
                 'Yüksek Hata Oranı': 'fa-exclamation-circle',
                 'Anormal Davranış': 'fa-theater-masks',
                 'Yüksek Frekans': 'fa-bolt',
-                'LSTM Anomalisi': 'fa-brain'
+                'LSTM Anomalisi': 'fa-brain',
+                // Veri yok durumu
+                'Henüz Saldırı Yok': 'fa-info-circle'
             };
             return icons[type] || 'fa-exclamation-triangle';
         }
@@ -1465,7 +1461,9 @@
                 'Yüksek Hata Oranı': 'text-danger',
                 'Anormal Davranış': 'text-warning',
                 'Yüksek Frekans': 'text-danger',
-                'LSTM Anomalisi': 'text-info'
+                'LSTM Anomalisi': 'text-info',
+                // Veri yok durumu
+                'Henüz Saldırı Yok': 'text-secondary'
             };
             return colors[type] || 'text-secondary';
         }

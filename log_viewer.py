@@ -87,18 +87,20 @@ def calculate_attack_confidence(line, pattern_matches, total_patterns):
     # Örneğin: Birden fazla saldırı deseni, HTTP metodu, URL kompleksliği, vb.
     
     # Belirli kritik desenlerin varlığı doğruluk oranını artırır
-    for critical_pattern in ['SELECT * FROM', 'DROP TABLE', '<script>alert', 'rm -rf', '/etc/passwd', '/bin/bash']:
+    critical_patterns = ['SELECT * FROM', 'DROP TABLE', '<script>alert', 'rm -rf', '/etc/passwd', '/bin/bash', 
+                        'union select', 'information_schema', 'alert(', 'javascript:', 'onload=']
+    for critical_pattern in critical_patterns:
         if critical_pattern.lower() in line.lower():
-            base_confidence += 15
+            base_confidence += 25  # Artırıldı
     
     # URL'de kritik parametreler varsa doğruluk oranını artır
     if any(param in line.lower() for param in ['id=', 'password=', 'user=', 'username=', 'pass=']):
-        base_confidence += 10
+        base_confidence += 15  # Artırıldı
     
     # 4xx veya 5xx HTTP durum kodları doğruluk oranını artırır
     status_match = re.search(r'" ([45]\d{2}) ', line)
     if status_match:
-        base_confidence += 10
+        base_confidence += 20  # Artırıldı
     
     # Doğruluk oranını 0-100 aralığında sınırla
     confidence = min(max(base_confidence, 0), 100)
@@ -124,9 +126,22 @@ def parse_log_line(line):
         status_match = re.search(r'" (\d{3}) ', line)
         status = status_match.group(1) if status_match else 'unknown'
         
-        # Timestamp
+        # Timestamp - Apache log formatını destekle
         timestamp_match = re.search(r'\[([^\]]+)\]', line)
-        timestamp = timestamp_match.group(1) if timestamp_match else datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if timestamp_match:
+            timestamp_str = timestamp_match.group(1)
+            # Apache format: [24/May/2025:19:05:03 +0300]
+            if '/' in timestamp_str and ':' in timestamp_str:
+                try:
+                    # Apache formatını parse et
+                    dt_part = timestamp_str.split(' ')[0]  # "24/May/2025:19:05:03"
+                    timestamp = datetime.strptime(dt_part, '%d/%b/%Y:%H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+                except:
+                    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                timestamp = timestamp_str
+        else:
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         # Saldırı türü tespiti
         attack_type = 'normal'
@@ -145,7 +160,7 @@ def parse_log_line(line):
         sql_matches = sum(1 for pattern in sql_patterns if re.search(pattern, line.lower()))
         if sql_matches > 0:
             confidence = calculate_attack_confidence(line, sql_matches, len(sql_patterns))
-            if confidence >= 40:
+            if confidence >= 15:
                 attack_type = 'SQL Injection'
                 print(f"SQL Injection tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -164,7 +179,7 @@ def parse_log_line(line):
             xss_matches = sum(1 for pattern in xss_patterns if re.search(pattern, line.lower()))
             if xss_matches > 0:
                 confidence = calculate_attack_confidence(line, xss_matches, len(xss_patterns))
-                if confidence >= 40:
+                if confidence >= 15:
                     attack_type = 'XSS'
                     print(f"XSS tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -180,7 +195,7 @@ def parse_log_line(line):
             brute_matches = sum(1 for pattern in brute_patterns if re.search(pattern, line.lower()))
             if brute_matches > 0:
                 confidence = calculate_attack_confidence(line, brute_matches, len(brute_patterns))
-                if confidence >= 40:
+                if confidence >= 15:
                     attack_type = 'Brute Force'
                     print(f"Brute Force tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -196,7 +211,7 @@ def parse_log_line(line):
             ddos_matches = sum(1 for pattern in ddos_patterns if re.search(pattern, line.lower()))
             if ddos_matches > 0:
                 confidence = calculate_attack_confidence(line, ddos_matches, len(ddos_patterns))
-                if confidence >= 40:
+                if confidence >= 15:
                     attack_type = 'DDoS'
                     print(f"DDoS tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -211,7 +226,7 @@ def parse_log_line(line):
             path_matches = sum(1 for pattern in path_patterns if pattern in line.lower())
             if path_matches > 0:
                 confidence = calculate_attack_confidence(line, path_matches, len(path_patterns))
-                if confidence >= 40:
+                if confidence >= 15:
                     attack_type = 'Path Traversal'
                     print(f"Path Traversal tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -227,7 +242,7 @@ def parse_log_line(line):
             cmd_matches = sum(1 for pattern in cmd_patterns if pattern in line.lower())
             if cmd_matches > 0:
                 confidence = calculate_attack_confidence(line, cmd_matches, len(cmd_patterns))
-                if confidence >= 40:
+                if confidence >= 15:
                     attack_type = 'Command Injection'
                     print(f"Command Injection tespit edildi: {line} (Doğruluk: {confidence:.1f}%)")
         
@@ -376,6 +391,57 @@ def monitor_logs():
     access_position = 0
     security_position = 0
     
+    # İlk başlangıçta mevcut tüm logları parse et
+    if os.path.exists(ACCESS_LOG):
+        print("Mevcut access.log dosyası parse ediliyor...")
+        with open(ACCESS_LOG, 'r', encoding='utf-8', errors='replace') as f:
+            lines = f.readlines()
+            for line in lines:
+                log_data = parse_log_line(line)
+                if log_data:
+                    update_traffic_stats(log_data)
+        access_position = os.path.getsize(ACCESS_LOG)
+        print(f"Access.log parse tamamlandı: {len(lines)} satır işlendi")
+
+    if os.path.exists(SECURITY_LOG):
+        print("Mevcut security.log dosyası parse ediliyor...")
+        with open(SECURITY_LOG, 'r', encoding='utf-8', errors='replace') as f:
+            lines = f.readlines()
+            for line in lines:
+                # Security loglarını da analiz et
+                ip_match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', line)
+                if ip_match:
+                    ip = ip_match.group(1)
+                    
+                    # Saldırı tipini belirle - app.py'deki tehdit tiplerini doğrudan kullan
+                    attack_type = "Security Issue"  # Varsayılan tip
+                    confidence = 50.0  # Varsayılan doğruluk oranı
+                    
+                    # app.py'deki tüm tehdit tiplerini kontrol et
+                    # WARNING - {threat_type} tespiti: formatını yakala
+                    threat_type_match = re.search(r'WARNING - (.*?) tespiti:', line)
+                    if threat_type_match:
+                        attack_type = threat_type_match.group(1)
+                        confidence = 85.0
+                    
+                    # Log verisini oluştur
+                    location = get_ip_location(ip)
+                    log_data = {
+                        'ip': ip,
+                        'method': 'SECURITY',
+                        'endpoint': '/security',
+                        'status': '000',
+                        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'attack_type': attack_type,
+                        'confidence': confidence,
+                        'location': location
+                    }
+                    
+                    # Trafik istatistiklerini güncelle
+                    update_traffic_stats(log_data)
+        security_position = os.path.getsize(SECURITY_LOG)
+        print(f"Security.log parse tamamlandı: {len(lines)} satır işlendi")
+    
     try:
         while True:
             # Access log kontrolü
@@ -417,37 +483,63 @@ def monitor_logs():
                                     attack_type = "Security Issue"  # Varsayılan tip
                                     confidence = 50.0  # Varsayılan doğruluk oranı
                                     
-                                    # Saldırı tipini doğrudan security_monitor.log'dan çıkar
+                                    # app.py'deki tüm tehdit tiplerini kontrol et
+                                    # WARNING - {threat_type} tespiti: formatını yakala
                                     threat_type_match = re.search(r'WARNING - (.*?) tespiti:', line)
                                     if threat_type_match:
                                         attack_type = threat_type_match.group(1)
+                                        confidence = 85.0
+                                        print(f"Security logdan {attack_type} tespit edildi: {line.strip()}")
+                                    # Hiçbir pattern uymazsa detaylı arama yap
+                                    elif 'Bot Aktivitesi' in line or 'bot aktivitesi' in line.lower():
+                                        attack_type = "Bot Aktivitesi"
                                         confidence = 75.0
-                                        print(f"Security logdan {attack_type} tespit edildi: {line}")
-                                    # Eski kontroller yedek olarak kalsın
+                                        print(f"Security logdan Bot Aktivitesi tespit edildi: {line.strip()}")
+                                    elif 'Çoklu Parmak İzi' in line or 'parmak izi' in line.lower():
+                                        attack_type = "Çoklu Parmak İzi"
+                                        confidence = 80.0
+                                        print(f"Security logdan Çoklu Parmak İzi tespit edildi: {line.strip()}")
+                                    elif 'Yüksek Hata Oranı' in line or 'hata oranı' in line.lower():
+                                        attack_type = "Yüksek Hata Oranı"
+                                        confidence = 70.0
+                                        print(f"Security logdan Yüksek Hata Oranı tespit edildi: {line.strip()}")
+                                    elif 'Anormal Davranış' in line or 'anormal davranış' in line.lower():
+                                        attack_type = "Anormal Davranış"
+                                        confidence = 75.0
+                                        print(f"Security logdan Anormal Davranış tespit edildi: {line.strip()}")
+                                    elif 'Yüksek Frekans' in line or 'yüksek frekans' in line.lower():
+                                        attack_type = "Yüksek Frekans"
+                                        confidence = 75.0
+                                        print(f"Security logdan Yüksek Frekans tespit edildi: {line.strip()}")
+                                    elif 'LSTM Anomalisi' in line or 'lstm anomali' in line.lower():
+                                        attack_type = "LSTM Anomalisi"
+                                        confidence = 90.0
+                                        print(f"Security logdan LSTM Anomalisi tespit edildi: {line.strip()}")
+                                    elif 'Brute Force' in line or 'brute force' in line.lower():
+                                        attack_type = "Brute Force"
+                                        confidence = 80.0
+                                        print(f"Security logdan Brute Force tespit edildi: {line.strip()}")
+                                    # Eski kontroller yedek olarak kalsın (access.log için)
                                     elif any(pattern.lower() in line.lower() for pattern in ["sql", "injection", "sqli", "sqlinjection", "sql attack", "sql_injection", "sql-injection"]):
                                         attack_type = "SQL Injection" 
                                         confidence = 70.0
-                                        print(f"Security logdan SQL Injection tespit edildi: {line}")
+                                        print(f"Security logdan SQL Injection tespit edildi: {line.strip()}")
                                     elif any(pattern.lower() in line.lower() for pattern in ["xss", "cross site", "cross-site", "script", "scripting", "malicious script"]):
                                         attack_type = "XSS"
                                         confidence = 70.0
-                                        print(f"Security logdan XSS tespit edildi: {line}")
-                                    elif any(pattern.lower() in line.lower() for pattern in ["brute", "brute force", "brute-force", "bruteforce", "password attack", "login attempt", "login attack"]):
-                                        attack_type = "Brute Force"
-                                        confidence = 65.0
-                                        print(f"Security logdan Brute Force tespit edildi: {line}")
+                                        print(f"Security logdan XSS tespit edildi: {line.strip()}")
                                     elif any(pattern.lower() in line.lower() for pattern in ["ddos", "denial", "denial of service", "dos", "flood", "flooding"]):
                                         attack_type = "DDoS"
                                         confidence = 60.0
-                                        print(f"Security logdan DDoS tespit edildi: {line}")
+                                        print(f"Security logdan DDoS tespit edildi: {line.strip()}")
                                     elif any(pattern.lower() in line.lower() for pattern in ["path", "traversal", "directory", "directory traversal", "path traversal", "../", "..\\"]):
                                         attack_type = "Path Traversal"
                                         confidence = 65.0
-                                        print(f"Security logdan Path Traversal tespit edildi: {line}")
+                                        print(f"Security logdan Path Traversal tespit edildi: {line.strip()}")
                                     elif any(pattern.lower() in line.lower() for pattern in ["command", "cmd", "injection", "command injection", "shell", "exec", "execute", "terminal"]):
                                         attack_type = "Command Injection"
                                         confidence = 75.0
-                                        print(f"Security logdan Command Injection tespit edildi: {line}")
+                                        print(f"Security logdan Command Injection tespit edildi: {line.strip()}")
                                     
                                     # Log verisini oluştur
                                     location = get_ip_location(ip)

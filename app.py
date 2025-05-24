@@ -512,7 +512,7 @@ class WebSecurityMonitor:
                 entry = self.parse_log_line(line)
                 if entry:
                     parsed_entries.append(entry)
-            
+                
             # IP başına girdileri grupla
             ip_entries = defaultdict(list)
             for entry in parsed_entries:
@@ -661,7 +661,7 @@ class WebSecurityMonitor:
                     X_lstm = np.array(X_sequences)
                     # Yapay etiketler (hepsi normal - gerçek kullanımda etiketli veri gerekir)
                     y_lstm = np.ones(len(X_sequences))
-                    
+                
                     # LSTM modeli None ise, modeli başlat
                     if self.lstm_model is None:
                         logger.info("LSTM modeli bulunamadı, yeniden başlatılıyor...")
@@ -682,14 +682,14 @@ class WebSecurityMonitor:
                     
                     # LSTM modeli başarıyla oluşturulduysa eğitimi gerçekleştir
                     if self.lstm_model is not None:
-                        # Modeli eğit
+                # Modeli eğit
                         history = self.lstm_model.fit(
-                            X_lstm, y_lstm, 
-                            epochs=5, 
-                            batch_size=32,
-                            verbose=0
-                        )
-                        
+                    X_lstm, y_lstm, 
+                    epochs=5, 
+                    batch_size=32,
+                    verbose=0
+                )
+                
                         # LSTM metriklerini kaydet
                         performance_metrics["lstm_metrics"] = {
                             "sequences_used": len(X_sequences),
