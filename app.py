@@ -333,11 +333,12 @@ class WebSecurityMonitor:
         
     def detect_threats(self):
         try:
+            # Log dosyasını aç ve son konumdan itibaren oku
             if not os.path.exists(self.log_path):
-                logger.error(f"Log dosyası bulunamadı: {self.log_path}")
+                logger.warning(f"Log dosyası bulunamadı: {self.log_path}")
                 return []
                 
-            with open(self.log_path, 'r', encoding='utf-8', errors='replace') as f:
+            with open(self.log_path, 'r', encoding='utf-8') as f:
                 f.seek(self.last_read_position)
                 new_lines = f.readlines()
                 self.last_read_position = f.tell()
@@ -345,22 +346,26 @@ class WebSecurityMonitor:
             if not new_lines:
                 return []
                 
-            threats = []
-            parsed_entries = []  # LSTM ve toplu analiz için tüm girdileri toplama
-            ip_entries = defaultdict(list)  # IP başına girdiler
-            
-            # İlk geçiş: Log satırlarını ayrıştır ve IP başına düzenle
+            # Satırları parse et ve girdileri topla
+            parsed_entries = []
             for line in new_lines:
                 entry = self.parse_log_line(line)
-                if not entry:
-                    continue
-                
-                parsed_entries.append(entry)
+                if entry:
+                    parsed_entries.append(entry)
+            
+            # IP başına girdileri grupla
+            ip_entries = defaultdict(list)
+            for entry in parsed_entries:
                 ip = entry['ip']
                 ip_entries[ip].append(entry)
-                
-                # Basit sayaçları güncelle
                 self.ip_total_requests[ip] += 1
+            
+            # Tespit edilen tehditleri sakla
+            threats = []
+            
+            # İlk geçiş: Her girdiyi kontrol et
+            for entry in parsed_entries:
+                ip = entry['ip']
                 
                 # Davranışsal özellikleri hesapla
                 self.calculate_behavioral_features(entry)
@@ -445,8 +450,9 @@ class WebSecurityMonitor:
                         })
                         self.update_risk_score(ip, 'Anormal Davranış')
             
-            # Modelleri eğit/güncelle
-            if len(parsed_entries) > 100 and not self.model_trained:
+            # Modelleri eğit/güncelle - 50 log kaydı yeterli ve henüz eğitilmemişse
+            if len(parsed_entries) >= 50 and not self.model_trained:
+                logger.info(f"{len(parsed_entries)} log kaydı toplandı, model eğitimi başlatılıyor...")
                 self._train_models(parsed_entries)
             
             return threats
@@ -459,6 +465,7 @@ class WebSecurityMonitor:
         """Modelleri eğitir/günceller"""
         try:
             if len(entries) < 50:  # Minimum veri gereksinimi
+                logger.info(f"Model eğitimi için yetersiz veri: {len(entries)} giriş. En az 50 giriş gerekli.")
                 return
                 
             logger.info(f"Modeller {len(entries)} girdi ile eğitiliyor...")
@@ -494,15 +501,78 @@ class WebSecurityMonitor:
                     verbose=0
                 )
                 
-                # Modeli kaydet
-                self.lstm_model.save(LSTM_MODEL_PATH)
-                logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi")
+                # LSTM Modelini kaydet
+                try:
+                    self.lstm_model.save(LSTM_MODEL_PATH)
+                    logger.info(f"LSTM modeli {len(X_sequences)} sekans ile eğitildi ve kaydedildi: {LSTM_MODEL_PATH}")
+                except Exception as e:
+                    logger.error(f"LSTM model kaydedilemedi: {e}")
+                
+                # 2. RandomForest için veri hazırlama
+                # Basit özellikler oluştur
+                features = []
+                labels = []
+                
+                for ip, ip_entries_list in ip_entries.items():
+                    if len(ip_entries_list) >= 5:
+                        # IP başına özellikler
+                        avg_response_size = np.mean([e['response_size'] for e in ip_entries_list])
+                        error_rate = sum(1 for e in ip_entries_list if 400 <= e['status_code'] < 600) / len(ip_entries_list)
+                        path_diversity = len(set([e['path'] for e in ip_entries_list])) / len(ip_entries_list)
+                        
+                        feature_vec = [avg_response_size, error_rate, path_diversity]
+                        features.append(feature_vec)
+                        
+                        # Basit etiket oluştur (gerçek uygulamada daha iyi etiketleme gerekir)
+                        is_suspicious = any(self.is_login_failed(e) for e in ip_entries_list) or error_rate > 0.5
+                        labels.append(1 if is_suspicious else 0)
+                
+                if len(features) >= 10:  # En az 10 örnek
+                    # Verileri ölçeklendir
+                    X = np.array(features)
+                    y = np.array(labels)
+                    
+                    # Scaler'ı eğit
+                    self.scaler.fit(X)
+                    X_scaled = self.scaler.transform(X)
+                    
+                    # RF modelini eğit
+                    self.rf_model.fit(X_scaled, y)
+                    
+                    # RandomForest modelini kaydet
+                    try:
+                        joblib.dump(self.rf_model, RF_MODEL_PATH)
+                        logger.info(f"RandomForest modeli {len(features)} örnek ile eğitildi ve kaydedildi: {RF_MODEL_PATH}")
+                    except Exception as e:
+                        logger.error(f"RandomForest model kaydedilemedi: {e}")
+                    
+                    # Scaler'ı kaydet
+                    try:
+                        joblib.dump(self.scaler, SCALER_PATH)
+                        logger.info(f"Scaler kaydedildi: {SCALER_PATH}")
+                    except Exception as e:
+                        logger.error(f"Scaler kaydedilemedi: {e}")
+                    
+                    # Özellik isimlerini kaydet
+                    feature_names = ["avg_response_size", "error_rate", "path_diversity"]
+                    try:
+                        with open(FEATURES_PATH, 'w', encoding='utf-8') as f:
+                            json.dump(feature_names, f)
+                        logger.info(f"Özellik isimleri kaydedildi: {FEATURES_PATH}")
+                    except Exception as e:
+                        logger.error(f"Özellik isimleri kaydedilemedi: {e}")
+                else:
+                    logger.info(f"RandomForest eğitimi için yetersiz veri: {len(features)} örnek. En az 10 örnek gerekli.")
+            else:
+                logger.info(f"LSTM eğitimi için yetersiz veri: {len(X_sequences)} sekans. En az 10 sekans gerekli.")
             
             # Model eğitildi olarak işaretle
             self.model_trained = True
         
         except Exception as e:
             logger.error(f"Model eğitimi sırasında hata: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
     
     def send_alert(self, threat):
         try:

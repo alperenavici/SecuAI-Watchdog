@@ -888,12 +888,22 @@
             let iconColor = 'blue';
             if (isAttack) {
                 switch (attackType) {
+                    // Web saldırıları
                     case 'SQL Injection': iconColor = 'orange'; break;
                     case 'XSS': iconColor = 'red'; break;
                     case 'Brute Force': iconColor = 'purple'; break;
                     case 'DDoS': iconColor = 'black'; break;
                     case 'Path Traversal': iconColor = 'green'; break;
                     case 'Command Injection': iconColor = 'darkred'; break;
+
+                    // App.py'deki saldırı tipleri
+                    case 'Bot Aktivitesi': iconColor = '#3498db'; break; // Mavi
+                    case 'Çoklu Parmak İzi': iconColor = '#f39c12'; break; // Turuncu
+                    case 'Yüksek Hata Oranı': iconColor = '#e74c3c'; break; // Kırmızı
+                    case 'Anormal Davranış': iconColor = '#9b59b6'; break; // Mor
+                    case 'Yüksek Frekans': iconColor = '#c0392b'; break; // Koyu kırmızı
+                    case 'LSTM Anomalisi': iconColor = '#2980b9'; break; // Koyu mavi
+
                     default: iconColor = 'red';
                 }
             }
@@ -1091,25 +1101,51 @@
         function updateAttackChartColors() {
             if (!attackDistributionChart) return;
 
-            const attackColors = [
-                '#ffcc00', // SQL Injection
-                '#ff003c', // XSS
-                '#00c8ff', // Brute Force
-                '#ff6b6b', // DDoS
-                '#4ecdc4', // Path Traversal
-                '#45b7d1', // Command Injection
-                '#96ceb4', // Diğer
-                '#E0A4F5', // Ek renkler
-                '#3E9BA8',
-                '#F4D35E'
+            const attackColors = {
+                // Web saldırıları
+                'SQL Injection': '#ffcc00',
+                'XSS': '#ff003c',
+                'Brute Force': '#00c8ff',
+                'DDoS': '#ff6b6b',
+                'Path Traversal': '#4ecdc4',
+                'Command Injection': '#45b7d1',
+
+                // App.py'deki saldırı tipleri
+                'Bot Aktivitesi': '#3498db',
+                'Çoklu Parmak İzi': '#f39c12',
+                'Yüksek Hata Oranı': '#e74c3c',
+                'Anormal Davranış': '#9b59b6',
+                'Yüksek Frekans': '#c0392b',
+                'LSTM Anomalisi': '#2980b9',
+
+                // Diğer saldırılar
+                'Security Issue': '#96ceb4',
+                'Directory Traversal': '#88d8b0',
+                'File Inclusion': '#bbded6',
+                'Remote Code Execution': '#f6eac2',
+                'Insecure Deserialization': '#ffa8a9',
+                'Server Side Request Forgery': '#d6cbd3'
+            };
+
+            // Yedek renkler (eğer saldırı tipi tanımlı değilse)
+            const fallbackColors = [
+                '#E0A4F5', '#3E9BA8', '#F4D35E', '#5D576B',
+                '#7D70BA', '#8FB8ED', '#9A8B4F', '#1F6E8C',
+                '#84A7A1', '#197BBD'
             ];
 
-            // En fazla 10 renk kullanıyoruz, daha fazla veri varsa döngüsel olarak yeniden başlayacak
-            attackDistributionChart.data.datasets[0].backgroundColor =
-                attackDistributionChart.data.labels.map((_, index) =>
-                    attackColors[index % attackColors.length]
-                );
+            // Her etiket için bir renk ata
+            const backgroundColors = attackDistributionChart.data.labels.map(label => {
+                // Önce tanımlı renklerden bul
+                if (attackColors[label]) {
+                    return attackColors[label];
+                }
+                // Tanımlı değilse yedek renklerden kullan
+                return fallbackColors[attackDistributionChart.data.labels.indexOf(label) % fallbackColors.length];
+            });
 
+            // Renkleri güncelle
+            attackDistributionChart.data.datasets[0].backgroundColor = backgroundColors;
             attackDistributionChart.update();
         }
 
@@ -1396,7 +1432,14 @@
                 'File Inclusion': 'fa-file-import',
                 'Remote Code Execution': 'fa-code',
                 'Insecure Deserialization': 'fa-box-open',
-                'Server Side Request Forgery': 'fa-server'
+                'Server Side Request Forgery': 'fa-server',
+                // App.py'deki saldırı tipleri
+                'Bot Aktivitesi': 'fa-robot',
+                'Çoklu Parmak İzi': 'fa-fingerprint',
+                'Yüksek Hata Oranı': 'fa-exclamation-circle',
+                'Anormal Davranış': 'fa-theater-masks',
+                'Yüksek Frekans': 'fa-bolt',
+                'LSTM Anomalisi': 'fa-brain'
             };
             return icons[type] || 'fa-exclamation-triangle';
         }
@@ -1415,7 +1458,14 @@
                 'File Inclusion': 'text-warning',
                 'Remote Code Execution': 'text-danger',
                 'Insecure Deserialization': 'text-info',
-                'Server Side Request Forgery': 'text-info'
+                'Server Side Request Forgery': 'text-info',
+                // App.py'deki saldırı tipleri
+                'Bot Aktivitesi': 'text-info',
+                'Çoklu Parmak İzi': 'text-warning',
+                'Yüksek Hata Oranı': 'text-danger',
+                'Anormal Davranış': 'text-warning',
+                'Yüksek Frekans': 'text-danger',
+                'LSTM Anomalisi': 'text-info'
             };
             return colors[type] || 'text-secondary';
         }

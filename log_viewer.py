@@ -413,41 +413,37 @@ def monitor_logs():
                                 if ip_match:
                                     ip = ip_match.group(1)
                                     
-                                    # Saldırı tipini belirle - Daha kapsamlı ve hata toleranslı olarak
+                                    # Saldırı tipini belirle - app.py'deki tehdit tiplerini doğrudan kullan
                                     attack_type = "Security Issue"  # Varsayılan tip
                                     confidence = 50.0  # Varsayılan doğruluk oranı
                                     
-                                    # SQL Injection için kapsamlı kontrol
-                                    if any(pattern.lower() in line.lower() for pattern in ["sql", "injection", "sqli", "sqlinjection", "sql attack", "sql_injection", "sql-injection"]):
+                                    # Saldırı tipini doğrudan security_monitor.log'dan çıkar
+                                    threat_type_match = re.search(r'WARNING - (.*?) tespiti:', line)
+                                    if threat_type_match:
+                                        attack_type = threat_type_match.group(1)
+                                        confidence = 75.0
+                                        print(f"Security logdan {attack_type} tespit edildi: {line}")
+                                    # Eski kontroller yedek olarak kalsın
+                                    elif any(pattern.lower() in line.lower() for pattern in ["sql", "injection", "sqli", "sqlinjection", "sql attack", "sql_injection", "sql-injection"]):
                                         attack_type = "SQL Injection" 
                                         confidence = 70.0
                                         print(f"Security logdan SQL Injection tespit edildi: {line}")
-                                    
-                                    # XSS için kapsamlı kontrol
                                     elif any(pattern.lower() in line.lower() for pattern in ["xss", "cross site", "cross-site", "script", "scripting", "malicious script"]):
                                         attack_type = "XSS"
                                         confidence = 70.0
                                         print(f"Security logdan XSS tespit edildi: {line}")
-                                    
-                                    # Brute Force için kapsamlı kontrol
                                     elif any(pattern.lower() in line.lower() for pattern in ["brute", "brute force", "brute-force", "bruteforce", "password attack", "login attempt", "login attack"]):
                                         attack_type = "Brute Force"
                                         confidence = 65.0
                                         print(f"Security logdan Brute Force tespit edildi: {line}")
-                                    
-                                    # DDoS için kapsamlı kontrol
                                     elif any(pattern.lower() in line.lower() for pattern in ["ddos", "denial", "denial of service", "dos", "flood", "flooding"]):
                                         attack_type = "DDoS"
                                         confidence = 60.0
                                         print(f"Security logdan DDoS tespit edildi: {line}")
-                                    
-                                    # Path Traversal için kapsamlı kontrol
                                     elif any(pattern.lower() in line.lower() for pattern in ["path", "traversal", "directory", "directory traversal", "path traversal", "../", "..\\"]):
                                         attack_type = "Path Traversal"
                                         confidence = 65.0
                                         print(f"Security logdan Path Traversal tespit edildi: {line}")
-                                    
-                                    # Command Injection için kapsamlı kontrol
                                     elif any(pattern.lower() in line.lower() for pattern in ["command", "cmd", "injection", "command injection", "shell", "exec", "execute", "terminal"]):
                                         attack_type = "Command Injection"
                                         confidence = 75.0
