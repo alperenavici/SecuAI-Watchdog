@@ -7,13 +7,13 @@ import random
 from datetime import datetime, timedelta
 
 def generate_diverse_logs():
-    # Çeşitli IP adresleri
+   
     ips = [f'192.168.{random.randint(1,10)}.{random.randint(1,254)}' for _ in range(20)]
     
-    # Çeşitli yollar
+    
     paths = ['/login', '/admin', '/wp-admin', '/user/login', '/api/login', '/dashboard', '/home', '/profile', '/api/data', '/search']
     
-    # Çeşitli user agent'lar
+   
     user_agents = [
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -24,7 +24,7 @@ def generate_diverse_logs():
         'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
     ]
     
-    # Log girişleri oluştur
+    
     with open('access.log', 'a') as f:
         for i in range(150):
             ip = random.choice(ips)

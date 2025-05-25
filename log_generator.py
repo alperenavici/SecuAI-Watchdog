@@ -4,10 +4,10 @@ import datetime
 import ipaddress
 import os
 
-# Log dosya yolu
+
 LOG_FILE = "access.log"
 
-# HTTP durum kodları
+
 STATUS_CODES = [200, 200, 200, 200, 200, 200, 301, 302, 304, 400, 401, 403, 404, 500]
 HTTP_METHODS = ["GET", "GET", "GET", "GET", "POST", "PUT", "DELETE"]
 URL_PATHS = [
@@ -17,7 +17,7 @@ URL_PATHS = [
     "/wp-admin", "/shell.php", "/admin/config.php", "/register"
 ]
 
-# User-Agent'lar: Normal tarayıcılar ve bazı kötü niyetli bot örnekleri
+
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
@@ -104,7 +104,7 @@ def main():
             # Normal ve kötü niyetli istekler karışık olarak üretilecek
             is_malicious = random.random() < 0.3  # %30 olasılıkla kötü niyetli istek 
             
-            # Botnet saldırısı simülasyonu (zaman zaman çok sayıda istek)
+            
             if random.random() < 0.05:  # %5 olasılıkla botnet saldırısı simülasyonu
                 print("Botnet saldırısı simülasyonu başlatılıyor...")
                 botnet_ip = random.choice(botnet_ips)
@@ -115,7 +115,7 @@ def main():
                     with open(LOG_FILE, "a", encoding="utf-8") as f:
                         f.write(log_entry + "\n")
                     
-                    # Çok kısa aralıklarla istekler (DDoS simülasyonu)
+                    
                     time.sleep(random.uniform(0.1, 0.3))  
                 
                 print(f"Botnet saldırısı simülasyonu tamamlandı. {attack_count} istek gönderildi.")

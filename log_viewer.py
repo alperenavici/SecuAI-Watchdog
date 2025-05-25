@@ -12,17 +12,17 @@ import re
 import geoip2.database
 import ipaddress
 
-# .env dosyasını yükle
+
 load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# Log dosya yolları
+
 ACCESS_LOG = "access.log"
 SECURITY_LOG = "security_monitor.log"
 
-# Port numarasını .env'den al (yoksa 5001 kullan)
+
 PORT = int(os.getenv("PORT", 5001))
 
 # GeoIP veritabanı yolu
@@ -80,29 +80,29 @@ def calculate_attack_confidence(line, pattern_matches, total_patterns):
     if pattern_matches == 0:
         return 0.0
     
-    # Temel doğruluk oranı: eşleşen desen sayısı / toplam desen sayısı
+   
     base_confidence = (pattern_matches / total_patterns) * 100
     
-    # Ek faktörlere göre doğruluk oranını ayarla
-    # Örneğin: Birden fazla saldırı deseni, HTTP metodu, URL kompleksliği, vb.
+   
     
-    # Belirli kritik desenlerin varlığı doğruluk oranını artırır
+    
+    
     critical_patterns = ['SELECT * FROM', 'DROP TABLE', '<script>alert', 'rm -rf', '/etc/passwd', '/bin/bash', 
                         'union select', 'information_schema', 'alert(', 'javascript:', 'onload=']
     for critical_pattern in critical_patterns:
         if critical_pattern.lower() in line.lower():
             base_confidence += 25  # Artırıldı
     
-    # URL'de kritik parametreler varsa doğruluk oranını artır
+    
     if any(param in line.lower() for param in ['id=', 'password=', 'user=', 'username=', 'pass=']):
         base_confidence += 15  # Artırıldı
     
-    # 4xx veya 5xx HTTP durum kodları doğruluk oranını artırır
+    
     status_match = re.search(r'" ([45]\d{2}) ', line)
     if status_match:
         base_confidence += 20  # Artırıldı
     
-    # Doğruluk oranını 0-100 aralığında sınırla
+    
     confidence = min(max(base_confidence, 0), 100)
     
     return confidence
@@ -110,19 +110,19 @@ def calculate_attack_confidence(line, pattern_matches, total_patterns):
 def parse_log_line(line):
     """Log satırını parse eder ve analiz için veri çıkarır"""
     try:
-        # IP adresi
+        
         ip_match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', line)
         ip = ip_match.group(1) if ip_match else 'unknown'
         
-        # HTTP metodu
+       
         method_match = re.search(r'(GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH)', line)
         method = method_match.group(1) if method_match else 'unknown'
         
-        # Endpoint
+        
         endpoint_match = re.search(r'"(GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH) ([^"]+)"', line)
         endpoint = endpoint_match.group(2) if endpoint_match else 'unknown'
         
-        # Status code
+        
         status_match = re.search(r'" (\d{3}) ', line)
         status = status_match.group(1) if status_match else 'unknown'
         

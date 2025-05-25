@@ -11,20 +11,20 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # CORS desteği ekle
+CORS(app)  
 
-# Port numarası
+
 PORT = 5002
 
-# Log dosya yolu
+
 ACCESS_LOG = "access.log"
 
-# Rastgele IP adresleri
+
 def generate_random_ips(count=10):
     """Rastgele IP adresleri üretir"""
     ips = []
     for _ in range(count):
-        # Gerçekçi IP adresleri üret (özel IP aralıklarını dışarıda bırak)
+        
         while True:
             octet1 = random.randint(1, 255)
             # RFC 1918 özel IP adreslerini dışarıda bırak
@@ -40,7 +40,7 @@ def generate_random_ips(count=10):
     
     return ips
 
-# Önceden tanımlanmış IP'ler
+
 PREDEFINED_IPS = generate_random_ips(20)
 
 # Saldırı örnekleri
@@ -131,7 +131,7 @@ STATUS_CODES = {
     "server_error": [500, 501, 502, 503, 504]
 }
 
-# HTTP User-Agent'ları
+
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
@@ -145,7 +145,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 OPR/78.0.4093.112"
 ]
 
-# Bot User-Agent'ları
+
 BOT_USER_AGENTS = [
     "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
     "Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)",
@@ -347,7 +347,7 @@ def generate_high_frequency(ip, count=1):
     """Yüksek frekans aktivitesi oluşturur"""
     results = []
     
-    # Çok kısa süre içinde çok sayıda istek oluştur
+   
     for _ in range(count):
         method = random.choice(HTTP_METHODS)
         path = random.choice(["/", "/api/data", "/products", "/search", "/users"])
@@ -368,11 +368,11 @@ def generate_high_error_rate(ip, count=1):
     for _ in range(count):
         method = random.choice(HTTP_METHODS)
         
-        # Var olmayan sayfalara istek at
+        
         random_path = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
         path = f"/{random_path}"
         
-        # Çoğunlukla 4xx hatası döndür
+     
         status_code = random.choice([404, 400, 403, 405, 406, 410])
         user_agent = random.choice(USER_AGENTS)
         
@@ -406,13 +406,13 @@ def attack():
     ip = data.get('ip')
     count = int(data.get('count', 1))
     
-    # Maksimum sayıyı sınırla
+    
     count = min(count, 50)
     
     if not ip or not attack_type:
         return jsonify({"success": False, "message": "IP adresi ve saldırı türü gerekli"})
     
-    # Saldırı türüne göre ilgili fonksiyonu çağır
+    
     attack_functions = {
         "sql_injection": generate_sql_injection_attack,
         "xss": generate_xss_attack,
@@ -441,17 +441,17 @@ def add_ip():
     if not ip:
         return jsonify({"success": False, "message": "IP adresi gerekli"})
     
-    # IP formatı doğru mu kontrol et
+    
     try:
         ipaddress.ip_address(ip)
     except ValueError:
         return jsonify({"success": False, "message": "Geçersiz IP adresi formatı"})
     
-    # IP zaten listede mi kontrol et
+    
     if ip in PREDEFINED_IPS:
         return jsonify({"success": False, "message": "Bu IP zaten listede"})
     
-    # IP'yi listeye ekle
+    
     PREDEFINED_IPS.append(ip)
     
     return jsonify({"success": True, "message": "IP başarıyla eklendi", "ips": PREDEFINED_IPS})
@@ -465,17 +465,17 @@ def remove_ip():
     if not ip:
         return jsonify({"success": False, "message": "IP adresi gerekli"})
     
-    # IP listede mi kontrol et
+   
     if ip not in PREDEFINED_IPS:
         return jsonify({"success": False, "message": "Bu IP listede yok"})
     
-    # IP'yi listeden çıkar
+    
     PREDEFINED_IPS.remove(ip)
     
     return jsonify({"success": True, "message": "IP başarıyla silindi", "ips": PREDEFINED_IPS})
 
 if __name__ == '__main__':
-    # Log dosyasını oluştur
+ 
     if not os.path.exists(ACCESS_LOG):
         open(ACCESS_LOG, 'a').close()
     

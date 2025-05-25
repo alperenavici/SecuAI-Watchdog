@@ -22,7 +22,7 @@ import tensorflow as tf
 from dotenv import load_dotenv
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# .env dosyasını yükle
+
 load_dotenv()
 
 # Telegram token ve chat ID'yi .env dosyasından al
@@ -37,12 +37,12 @@ SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
 FEATURES_PATH = os.path.join(MODEL_DIR, "features.json")
 METRICS_PATH = os.path.join(MODEL_DIR, "performance_metrics.json")
 
-# Model versiyonlama yolları
+
 MODELS_HISTORY_DIR = os.path.join(MODEL_DIR, "history")
 PERFORMANCE_HISTORY_PATH = os.path.join(MODEL_DIR, "performance_history.json")
 BEST_MODELS_PATH = os.path.join(MODEL_DIR, "best_models.json")
 
-# Modeller için dizin oluşturma
+
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(MODELS_HISTORY_DIR, exist_ok=True)
 
@@ -77,14 +77,14 @@ class WebSecurityMonitor:
         self.ip_total_requests = defaultdict(int)
         self.user_agents = defaultdict(list)
         
-        # IP ve zaman bazlı veri yapıları
+        
         self.ip_time_history = defaultdict(list)
         self.ip_path_history = defaultdict(list)
         self.ip_session_data = defaultdict(dict)
         self.ip_behavioral_features = defaultdict(dict)
         
-        # Son X zaman dilimi verilerini tutan LSTM için geçmiş veriler
-        self.time_window = 60  # 60 saniyelik pencere
+       
+        self.time_window = 60  
         self.historical_data = []
         
         self.known_bot_patterns = [
@@ -92,24 +92,24 @@ class WebSecurityMonitor:
             r'Headless', r'Python-urllib', r'selenium', r'automation', r'harvest'
         ]
         
-        # Anomali tespiti için temel modeller
+        
         self.isolation_model = IsolationForest(contamination=0.05, random_state=42)
         self.scaler = StandardScaler()
         
-        # Gelişmiş modeller
+        
         self.lstm_model = None
         self.rf_model = None
         self.model_trained = False
         
-        # Davranışsal analiz için parametreler
+        
         self.fingerprint_db = {}
         self.session_features = {}
         
-        # IP'lerin risk skorları
+      
         self.ip_risk_scores = defaultdict(float)
         self.suspicious_ips = set()
         
-        # Model yüklenmesi
+       
         self._load_models()
         
         logger.info("Web Güvenlik İzleme Sistemi başlatıldı")
@@ -364,17 +364,17 @@ class WebSecurityMonitor:
         ua = log_entry['user_agent']
         ip = log_entry['ip']
         
-        # Basit parmak izi: User-Agent hash'i
+      
         fingerprint = hashlib.md5(ua.encode()).hexdigest()
         
-        # Parmak izini kaydet
+       
         if ip not in self.fingerprint_db:
             self.fingerprint_db[ip] = []
         
         if fingerprint not in self.fingerprint_db[ip]:
             self.fingerprint_db[ip].append(fingerprint)
         
-        # Birden çok parmak izi anormal olabilir
+       
         return len(self.fingerprint_db[ip]) > 1
         
     def calculate_behavioral_features(self, log_entry):
@@ -383,39 +383,39 @@ class WebSecurityMonitor:
         timestamp = log_entry['timestamp']
         path = log_entry['path']
         
-        # Zamana bağlı özellikler
+        
         self.ip_time_history[ip].append(timestamp)
         self.ip_path_history[ip].append(path)
         
-        # Son aktiviteleri al (en fazla son 20)
+        
         recent_times = self.ip_time_history[ip][-20:]
         recent_paths = self.ip_path_history[ip][-20:]
         
-        # Davranışsal özellikler
+       
         features = {}
         
-        # 1. İstek frekansı (son 20 istek arasındaki ortalama süre)
+        
         if len(recent_times) > 1:
             time_diffs = [(recent_times[i] - recent_times[i-1]).total_seconds() 
                         for i in range(1, len(recent_times))]
             features['avg_request_interval'] = sum(time_diffs) / len(time_diffs) if time_diffs else 0
             features['min_request_interval'] = min(time_diffs) if time_diffs else 0
         
-        # 2. Yol çeşitliliği (benzersiz yolların oranı)
+
         features['path_diversity'] = len(set(recent_paths)) / len(recent_paths) if recent_paths else 0
         
-        # 3. Yinelenen yolların oranı
+        
         path_counts = Counter(recent_paths)
         features['repeated_paths_ratio'] = sum(1 for c in path_counts.values() if c > 1) / len(path_counts) if path_counts else 0
         
-        # IP için davranışsal özellikleri güncelle
+        
         self.ip_behavioral_features[ip].update(features)
         
         return features
     
     def update_risk_score(self, ip, threat_type, increment=0.2):
         """IP için risk skorunu günceller"""
-        # Tehdit tipine göre ağırlıklar
+       
         weights = {
             'Brute Force': 0.7,
             'Yüksek Hata Oranı': 0.5,
@@ -426,11 +426,11 @@ class WebSecurityMonitor:
             'LSTM Anomalisi': 0.8
         }
         
-        # Tehdit tipine göre ağırlıklandırılmış artış
+       
         weight = weights.get(threat_type, 0.2)
         self.ip_risk_scores[ip] += increment * weight
         
-        # Risk skorunu 0-1 aralığında tut
+        
         self.ip_risk_scores[ip] = min(1.0, self.ip_risk_scores[ip])
         
         return self.ip_risk_scores[ip]
@@ -445,7 +445,7 @@ class WebSecurityMonitor:
             if not entry:
                 continue
                 
-            # Sayısal özellikler
+           
             features = [
                 int(entry.get('status_code', 0)),
                 len(entry.get('path', '')),
@@ -456,7 +456,7 @@ class WebSecurityMonitor:
             ]
             sequences.append(features)
             
-        # Sequence data için en az 10 girdi gerekli
+        
         while len(sequences) < 10:
             sequences.insert(0, [0, 0, 0, 0, 0, 0])  # Padding
             
@@ -493,7 +493,7 @@ class WebSecurityMonitor:
         
     def detect_threats(self):
         try:
-            # Log dosyasını aç ve son konumdan itibaren oku
+            
             if not os.path.exists(self.log_path):
                 logger.warning(f"Log dosyası bulunamadı: {self.log_path}")
                 return []
@@ -527,10 +527,10 @@ class WebSecurityMonitor:
             for entry in parsed_entries:
                 ip = entry['ip']
                 
-                # Davranışsal özellikleri hesapla
+                
                 self.calculate_behavioral_features(entry)
                 
-                # İstek frekansını kontrol et
+                
                 if len(self.ip_time_history[ip]) >= 2:
                     last_two = self.ip_time_history[ip][-2:]
                     interval = (last_two[1] - last_two[0]).total_seconds()
