@@ -1808,3 +1808,200 @@ AttributeError: 'NoneType' object has no attribute 'fit'
 2025-05-24 19:21:41,633 - security_monitor - INFO - Tehdit tespit edilmedi
 2025-05-24 19:21:51,672 - security_monitor - INFO - Tehdit tespit edilmedi
 2025-05-24 19:21:58,356 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
+2025-05-25 15:56:41,601 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-05-25 15:56:41,602 - security_monitor - INFO - LSTM modeli başarıyla yüklendi
+2025-05-25 15:56:41,609 - security_monitor - INFO - RandomForest modeli başarıyla yüklendi
+2025-05-25 15:56:41,609 - security_monitor - INFO - Scaler başarıyla yüklendi
+2025-05-25 15:56:41,609 - security_monitor - INFO - Özellik isimleri başarıyla yüklendi
+2025-05-25 15:56:41,609 - security_monitor - INFO - Web Güvenlik İzleme Sistemi başlatıldı
+2025-05-25 15:56:41,609 - security_monitor - INFO - Web güvenlik izleme başlatıldı
+2025-05-25 15:56:51,660 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"01" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"02" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"03" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"04" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"05" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"06" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"07" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"08" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"09" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"10" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"11" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,661 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"12" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"13" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"14" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:19:11:"15" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"01" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"02" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"03" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"04" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"05" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"06" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"07" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"08" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"09" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"10" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"11" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"12" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"13" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"14" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,662 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"15" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"16" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"17" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"18" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"19" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"20" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"21" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"22" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"23" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"24" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"25" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"26" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"27" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"28" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"29" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"30" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"31" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"32" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,663 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"33" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"34" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"35" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"36" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"37" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"38" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"39" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"40" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"41" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"42" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"43" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"44" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"45" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"46" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"47" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"48" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"49" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:51,664 - security_monitor - ERROR - Log satırı parse edilemedi: time data '24/May/2025:18:30:"50" +0300' does not match format '%d/%b/%Y:%H:%M:%S %z'
+2025-05-25 15:56:52,476 - security_monitor - WARNING - Bot Aktivitesi tespiti: 228.112.102.23 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-25 15:56:52,981 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 204.207.193.37 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:53,378 - security_monitor - WARNING - Bot Aktivitesi tespiti: 23.155.187.67 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-25 15:56:53,875 - security_monitor - WARNING - Bot Aktivitesi tespiti: 203.86.46.129 (Bot aktivitesi tespit edildi: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 PhantomJS)
+2025-05-25 15:56:54,612 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 32.119.239.241 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:54,971 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 165.77.24.51 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:55,431 - security_monitor - WARNING - Bot Aktivitesi tespiti: 87.158.82.45 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-25 15:56:55,810 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 97.109.38.249 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:56,312 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 191.82.194.3 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:56,659 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 189.46.155.157 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:57,674 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 169.6.25.42 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:58,644 - security_monitor - WARNING - Bot Aktivitesi tespiti: 221.84.202.89 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-25 15:56:59,031 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 20.171.147.232 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:56:59,635 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 135.252.130.221 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:00,178 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 180.62.154.217 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:00,505 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 167.156.209.69 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:01,037 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 45.234.34.190 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:01,559 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 38.9.18.6 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:02,109 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 103.58.23.47 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:02,609 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 226.123.89.173 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:03,129 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 101.6.165.118 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:03,738 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 48.212.186.32 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:04,178 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 97.201.207.120 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:04,912 - security_monitor - WARNING - Bot Aktivitesi tespiti: 220.238.39.133 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-25 15:57:05,377 - security_monitor - WARNING - Bot Aktivitesi tespiti: 192.168.1.1 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm))
+2025-05-25 15:57:05,755 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 117.108.252.82 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:06,179 - security_monitor - WARNING - Bot Aktivitesi tespiti: 89.37.81.17 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-25 15:57:06,687 - security_monitor - WARNING - Bot Aktivitesi tespiti: 41.237.187.32 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; DuckDuckGo-Favicons-Bot/1.0; +http://duckduckgo.com))
+2025-05-25 15:57:07,154 - security_monitor - WARNING - Bot Aktivitesi tespiti: 149.86.157.82 (Bot aktivitesi tespit edildi: Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots))
+2025-05-25 15:57:07,857 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 78.188.145.123 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:17,901 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:57:28,397 - security_monitor - WARNING - Çoklu Parmak İzi tespiti: 61.246.86.159 (Birden fazla user-agent kullanımı: 2 farklı imza)
+2025-05-25 15:57:38,437 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:57:48,482 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:57:58,531 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:08,568 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:18,610 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:28,645 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:38,694 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:48,741 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:58:58,776 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:08,819 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:18,862 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:28,913 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:38,950 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:48,996 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 15:59:59,032 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:09,076 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:19,120 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:29,162 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:39,203 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:49,242 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:00:59,287 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:09,331 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:19,381 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:29,425 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:39,460 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:49,501 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:01:59,534 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:09,572 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:19,614 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:29,659 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:39,692 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:49,741 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:02:59,774 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:03:09,815 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:03:19,858 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:03:29,905 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:03:39,948 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:03:49,994 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:00,036 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:10,072 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:20,115 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:30,157 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:40,186 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:04:50,219 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:00,248 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:10,282 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:20,319 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:30,359 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:40,397 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:05:50,435 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:00,482 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:10,521 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:20,564 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:30,600 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:40,640 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:06:50,679 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:00,721 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:10,758 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:20,791 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:30,830 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:40,868 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:07:50,905 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:00,944 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:10,992 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:21,023 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:31,054 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:41,087 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:08:51,127 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:01,174 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:11,206 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:21,242 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:31,283 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:41,325 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:09:51,372 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:01,398 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:11,441 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:21,483 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:31,526 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:41,563 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:10:51,594 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:01,638 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:11,698 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:21,740 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:31,789 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:41,832 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:11:51,869 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:01,910 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:11,949 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:21,993 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:32,033 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:42,072 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:52,115 - security_monitor - INFO - Tehdit tespit edilmedi
+2025-05-25 16:12:55,471 - security_monitor - INFO - İzleme sistemi manuel olarak durduruldu
