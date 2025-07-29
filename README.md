@@ -210,10 +210,10 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosy
 - **Güvenlik Uzmanı**: [İsim]
 
 ## 📞 İletişim
+ 
+- **E-posta**: a.avci.alperen@gmail.com
+- **GitHub**: https://github.com/alperenavici/SecuAI-Watchdog
 
-- **E-posta**: contact@secuai-watchdog.com
-- **GitHub**: https://github.com/username/SecuAI-Watchdog
-- **Dokümantasyon**: https://secuai-watchdog.readthedocs.io
 
 ---
 
